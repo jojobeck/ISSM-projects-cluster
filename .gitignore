@@ -1,0 +1,10 @@
+Data
+AIS_1850/figs
+AIS_1850/Models
+AIS_1850/*.queue
+AIS_1850/*.bin
+AIS_1850/*.toolkits
+AIS_1850/*.outlog
+AIS_1850/*.errlog
+AIS_1850/*.log
+
