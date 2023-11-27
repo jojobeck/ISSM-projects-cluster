@@ -16,12 +16,16 @@ function md=run_func(steps,loadonly)
 
         namenew = [p_table 'cond_hist1_' name];
         T = readtable(namenew, 'Delimiter' , ',');
-        for i =2:size(T,1)
+        for i =1:size(T,1)
 
             md_in_path = ['Models/' T.model_names{i}];
-            disp(md_in_path);
             md = model_continue_hist2(md_in_path);
             md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+
         end
     end% }}}
     if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x'),% {{{
@@ -32,9 +36,12 @@ function md=run_func(steps,loadonly)
         for i =1:size(T,1)
 
             md_in_path = ['Models/' T.model_names{i}];
-            disp(md_in_path);
             md = model_continue_hist2(md_in_path);
             md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly,
+                % savemodel
+                save_misc_name(md);
+            end
         end
 
 
@@ -49,9 +56,12 @@ if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x'),% {{{
     for i =1:size(T,1)
 
         md_in_path = ['Models/' T.model_names{i}];
-        disp(md_in_path);
         md = model_continue_hist2(md_in_path);
         md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+        if loadonly
+            % savemodel
+            save_misc_name(md);
+        end
     end
 
 
@@ -65,9 +75,12 @@ end% }}}
         for i =1:size(T,1)
 
             md_in_path = ['Models/' T.model_names{i}];
-            disp(md_in_path);
             md = model_continue_hist2(md_in_path);
             md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
         end
 
 

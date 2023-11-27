@@ -60,7 +60,7 @@ function md = model_continue_hist2(md_in_path)
     md.timestepping.start_time=1;
     md.timestepping.final_time=100;
     md.timestepping.time_step=1/24;
-    md.settings.output_frequency=24*25;
+    md.settings.output_frequency=24*1;
     md.transient.requested_outputs={'default'};
 
     %Set melt / friction interpolation schemes
