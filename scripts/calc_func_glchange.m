@@ -1,27 +1,12 @@
 function gl_change=calc_func_glchange_presentday(steps,md_hist,md,dist_gl_presentday,tr_step)
+    % md_hist is model iwht transiedn run, last step is used to calculate grounding line thickness
+     if ~exist('tr_step','var')
+         % third parameter does not exist, so default it to something
+          tr_step =size(md_hist.results.TransientSolution,2);
 
- % Input validation
-    if nargin < 4
-        error('Not enough input arguments. Please provide at least steps, md_hist, md, and dist_gl_presentday.');
-    end
-
-    if nargin < 5
-        % If tr_step is not provided, set it to the last step of md_hist
-        if isempty(md_hist) || isempty(md_hist.results) || isempty(md_hist.results.TransientSolution)
-            error('Invalid md_hist object. Make sure it has the expected structure.');
-        end
-        tr_step = size(md_hist.results.TransientSolution, 2);
-    end
-
-    if ~isnumeric(steps) || ~isobject(md) || ~isnumeric(dist_gl_presentday) || ~isnumeric(tr_step)
-        error('Invalid input argument types. Please check the input types.');
-    end
+     end
 
 
-    % Check if tr_step is greater than the size of md_hist.results.TransientSolution
-    if tr_step > size(md_hist.results.TransientSolution, 2)
-        error('Invalid tr_step. It cannot be greater than the number of transient solution steps.');
-    end
     % loadonly = 1;
     addpath('./../scripts');
 

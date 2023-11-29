@@ -1,5 +1,26 @@
-function gl_change=calc_func_glchange_PigTHWpast(steps,md_hist)
+function gl_change=calc_func_glchange_PigTHWpast(steps,md_hist,tr_step)
 
+    if nargin < 2
+        error('Not enough input arguments. Please provide at least steps, md_hist, md, and dist_gl_presentday.');
+    end
+
+    if nargin < 3
+        % If tr_step is not provided, set it to the last step of md_hist
+        if isempty(md_hist) || isempty(md_hist.results) || isempty(md_hist.results.TransientSolution)
+            error('Invalid md_hist object. Make sure it has the expected structure.');
+        end
+        tr_step = size(md_hist.results.TransientSolution, 2);
+    end
+
+    if ~isnumeric(steps) || ~isnumeric(tr_step)
+        error('Invalid input argument types. Please check the input types.');
+    end
+
+
+    % Check if tr_step is greater than the size of md_hist.results.TransientSolution
+    if tr_step > size(md_hist.results.TransientSolution, 2)
+        error('Invalid tr_step. It cannot be greater than the number of transient solution steps.');
+    end
 
     % loadonly = 1;
     addpath('./../scripts');
@@ -9,16 +30,11 @@ function gl_change=calc_func_glchange_PigTHWpast(steps,md_hist)
     org=organizer('repository',['./Models'],'prefix',['HIST1850_1930_'],'steps',steps, 'color', '34;47;2'); 
     % org=organizer('repository',['/Volumes/Crucial X8/SAEF/issm_project/AIS_1850/Models'],'prefix',['AIS1850_'],'steps',steps, 'color', '34;47;2'); 
     clear steps;
-    datadir= '/Users/jbec0008/SAEF/datasets/';
-    data_smb='/Volumes/Crucial X8/SAEF/ISMIP6/data_and_preprocessing/preprocess/SMB_JOHANNA/';
-    data_2km_xy='/Volumes/Crucial X8/SAEF/ISMIP6/data_and_preprocessing/published_data/ISMIP6/AtmosphericForcing/noresm1-m_rcp8.5/';
-    data_ocean='/Volumes/Crucial X8/SAEF/ISMIP6/data_and_preprocessing/published_data/ISMIP6/Ocean/';
-    data_tmp_ocean = '/Users/jbec0008/SAEF/issm_projects/equi_1850/Data/Ocean/';
-    data_tmp_smb = '/Users/jbec0008/SAEF/issm_projects/equi_1850/Data/Atmosphere/';
+
     % loadonly=1;
     % InterpFromMeshToMesh2d
     
-    dist_gl = reinitializelevelset(md_hist, md_hist.results.TransientSolution(end).MaskOceanLevelset);    
+    dist_gl = reinitializelevelset(md_hist, md_hist.results.TransientSolution(tr_step).MaskOceanLevelset);    
 
     % clim runs 10-12
 if perform(org,'PIG_1940')% {{{
@@ -33,7 +49,6 @@ if perform(org,'PIG_1940')% {{{
     m_error = dist <=-9e5; %acounting for rounding errors
     gl_change =mean(dist(~m_error));
 
-	% md=loadmodel('./Models/ISMIP6Antarctica__CollapseSSA.math');
 
 end %}}}
 if perform(org,'TWH_1992')% {{{
