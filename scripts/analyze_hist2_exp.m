@@ -12,7 +12,7 @@ function results =ananlyze_hist2_exp(name);
 
     md_present = loadmodel('Models/AIS1850_CollapseSSA.mat');
     % Loop through each run
-% for runIndex = 1:numRuns
+    % for runIndex = 1:numRuns
     for runIndex = 1:1
         runName=['hist2_' T.model_names{runIndex}];
         model_pth = ['Models/' runName];
@@ -47,6 +47,6 @@ function results =ananlyze_hist2_exp(name);
         results(runIndex).data = runStruct;
     end
 
-% Save the results to a file if needed
+    % Save the results to a file if needed
     save('./Data/Tables/analysisResults.mat', 'results');
 
