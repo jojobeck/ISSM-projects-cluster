@@ -1,4 +1,4 @@
-function analyzehist2_func(steps,numberOfWorkers)
+function analyze_hist2_func(steps,numberOfWorkers)
 
     if ~exist('numberOfWorksers','var')
       numberOfWorkers= 1;
@@ -15,7 +15,10 @@ function analyzehist2_func(steps,numberOfWorkers)
     if perform(org,'-1930_from_2ka_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x_gl_to_presentday'),% {{{
 
         name ='historic_until_1930_from_1-2ka_PISMfriction_SMB4x.txt';
-        results = parallel_analyze_hist2_exp(name,numberOfWorkers);
+        tic
+        results = analyze_hist2_exp(name);
+        toc
+% results = analyze_hist2_exp(name,numberOfWorkers);
     end% }}}
     if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x'),% {{{
         name='historic_until_1930_from_2ka_Cfriction_mean_SMB4_submit.txt';

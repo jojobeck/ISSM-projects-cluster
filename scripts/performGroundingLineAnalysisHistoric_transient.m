@@ -22,7 +22,8 @@ function gls = performGroundingLineAnalysisHistoric_transient(step,md_hist)
 
 
     gls =[];
-    for i=1 :nums
+% for i=1 :nums
+    for i=1 :1
         gl =calc_func_glchange_PigTHWpast(step,md_hist,i) ;
         gls = [gls gl];
     end

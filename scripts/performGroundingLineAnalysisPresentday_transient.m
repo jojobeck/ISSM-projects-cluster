@@ -31,7 +31,8 @@ function gls = performGroundingLineAnalysisPresentday_transient(step,md_hist,md_
     dist_gl_presentday = reinitializelevelset(md_present, md_present.mask.ocean_levelset);
 
     % Loop through each transient step
-    for i = 1:nums
+    % for i = 1:nums
+    for i = 1:1
         % Call calc_func_glchange_presentday function (assuming it's defined elsewhere)
         gl = calc_func_glchange_presentday(step, md_hist, md_present, dist_gl_presentday, i);
 
