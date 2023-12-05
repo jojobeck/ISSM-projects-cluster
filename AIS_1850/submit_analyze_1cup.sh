@@ -26,5 +26,5 @@ module load matlab_licence/monash
 
 # argName='$arg'
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, analyze_hist2_fun , quit" > c1Analyze.log
-matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib" -singleCompThread <analyze_hist2_script.m > c1Analayze.log
+matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib" -singleCompThread <analyze_hist2_script.m > c1Analyze.log
 # matlab -nosplash -singleCompThread < analyze_script.m > /scratch/bi77/jb1863/$PBS_JOBID,ananlyze.log

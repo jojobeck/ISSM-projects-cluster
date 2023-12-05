@@ -25,16 +25,17 @@ function gls = performGroundingLineAnalysisPresentday_transient(step,md_hist,md_
     % Calculate the number of transient steps
     nums = size(md_hist.results.TransientSolution, 2);
     % Initialize the grounding line array
-    gls = [];
+    % gls = [];
+    gls =zeros(1,nums);
 
 
     % Loop through each transient step
     % for i = 1:nums
     for i = 1:1
         % Call calc_func_glchange_presentday function (assuming it's defined elsewhere)
-        gl = calc_func_glchange_presentday(step, md_hist, md_present, dist_gl_presentday, i);
+        gls(i)= calc_func_glchange_presentday(step, md_hist, md_present, dist_gl_presentday, i);
 
         % Append the result to the grounding line array
-        gls = [gls, gl];
+        % gls = [gls, gl];
     end
 end

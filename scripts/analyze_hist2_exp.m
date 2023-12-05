@@ -28,10 +28,10 @@ function results =ananlyze_hist2_exp(name);
 
         % Loop through each output data set
         % Perform analysis and store the result in the structure
-        glpdStruc.groundingLineDistance_PIGtransient = performGroundingLineAnalysisPresentday_transient(1,md_hist,md_present,dist_gl_presentday);  % give distance to present day gl each timestep
-        glpdStruc.groundingLineDistance_THWtransient = performGroundingLineAnalysisPresentday_transient(2,md_hist,md_present,dist_gl_presentday);
-        glpdStruc.groundingLineDistance_Moscowtransient =performGroundingLineAnalysisPresentday_transient(3,md_hist,md_present,dist_gl_presentday);
-        glpdStruc.groundingLineDistance_Tottentransient = performGroundingLineAnalysisPresentday_transient(4,md_hist,md_present,dist_gl_presentday);
+        % glpdStruc.groundingLineDistance_PIGtransient = performGroundingLineAnalysisPresentday_transient(1,md_hist,md_present,dist_gl_presentday);  % give distance to present day gl each timestep
+        % glpdStruc.groundingLineDistance_THWtransient = performGroundingLineAnalysisPresentday_transient(2,md_hist,md_present,dist_gl_presentday);
+        % glpdStruc.groundingLineDistance_Moscowtransient =performGroundingLineAnalysisPresentday_transient(3,md_hist,md_present,dist_gl_presentday);
+        % glpdStruc.groundingLineDistance_Tottentransient = performGroundingLineAnalysisPresentday_transient(4,md_hist,md_present,dist_gl_presentday);
         %hisitoric distance
         % glhistStruct.groundingLineDistance_PIGto1940=performGroundingLineAnalysisHistoric_transient(1,md_hist);
         % glhistStruct.groundingLineDistance_THWto1922=performGroundingLineAnalysisHistoric_transient(2,md_hist);
@@ -39,6 +39,8 @@ function results =ananlyze_hist2_exp(name);
         % rmseThicknessGradient_struc = performRMSEAnalysis_transient(3,md_hist,md_present);  % gives sructure of RMSE to smihr dhdt
 
         % Store the results in the structure
+        
+        glpdStruc.groundingLineDistance_alltransient = performGroundingLineAnalysisPresentday_transientall(md_hist,md_present,dist_gl_presentday);  % give distance to present day gl each timestep
         runStruct.groundinglineDistance_pd =  glpdStruc;
         % runStruct.groundinglineDistance_hist =  glhistStruct;
 

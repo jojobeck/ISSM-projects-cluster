@@ -3,7 +3,8 @@ steps =1;
 addpath('./../scripts');
 
 
-% parpool('local', numberOfWorkers);
+
+parpool('local', numberOfWorkers);
 
 org=organizer('repository',['./Models'],'prefix',['HIST1850_1930_'],'steps',steps, 'color', '34;47;2'); 
 % org=organizer('repository',['/Volumes/Crucial X8/SAEF/issm_project/AIS_1850/Models'],'prefix',['AIS1850_'],'steps',steps, 'color', '34;47;2'); 
