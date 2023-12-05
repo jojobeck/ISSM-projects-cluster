@@ -11,6 +11,8 @@ function results =ananlyze_hist2_exp(name);
     results = struct('run', cell(1, numRuns), 'data', cell(1, numRuns));
 
     md_present = loadmodel('Models/AIS1850_CollapseSSA.mat');
+    % Reinitialize level set for present day
+    dist_gl_presentday = reinitializelevelset(md_present, md_present.mask.ocean_levelset);
     % Loop through each run
     % for runIndex = 1:numRuns
     for runIndex = 1:1
@@ -26,10 +28,10 @@ function results =ananlyze_hist2_exp(name);
 
         % Loop through each output data set
         % Perform analysis and store the result in the structure
-        glpdStruc.groundingLineDistance_PIGtransient = performGroundingLineAnalysisPresentday_transient(1,md_hist,md_present);  % give distance to present day gl each timestep
-        glpdStruc.groundingLineDistance_THWtransient = performGroundingLineAnalysisPresentday_transient(2,md_hist,md_present);
-        glpdStruc.groundingLineDistance_Moscowtransient =performGroundingLineAnalysisPresentday_transient(3,md_hist,md_present);
-        glpdStruc.groundingLineDistance_Tottentransient = performGroundingLineAnalysisPresentday_transient(4,md_hist,md_present);
+        glpdStruc.groundingLineDistance_PIGtransient = performGroundingLineAnalysisPresentday_transient(1,md_hist,md_present,dist_gl_presentday);  % give distance to present day gl each timestep
+        glpdStruc.groundingLineDistance_THWtransient = performGroundingLineAnalysisPresentday_transient(2,md_hist,md_present,dist_gl_presentday);
+        glpdStruc.groundingLineDistance_Moscowtransient =performGroundingLineAnalysisPresentday_transient(3,md_hist,md_present,dist_gl_presentday);
+        glpdStruc.groundingLineDistance_Tottentransient = performGroundingLineAnalysisPresentday_transient(4,md_hist,md_present,dist_gl_presentday);
         %hisitoric distance
         % glhistStruct.groundingLineDistance_PIGto1940=performGroundingLineAnalysisHistoric_transient(1,md_hist);
         % glhistStruct.groundingLineDistance_THWto1922=performGroundingLineAnalysisHistoric_transient(2,md_hist);

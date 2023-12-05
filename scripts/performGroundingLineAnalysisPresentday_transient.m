@@ -1,8 +1,8 @@
-function gls = performGroundingLineAnalysisPresentday_transient(step,md_hist,md_present)
+function gls = performGroundingLineAnalysisPresentday_transient(step,md_hist,md_present,dist_gl_presentday)
     % Perform grounding line analysis for present day transient solutions
 
     % Input validation
-    if nargin < 3
+    if nargin < 4
         error('Not enough input arguments. Please provide step, md_hist, and md_present.');
     end
 
@@ -27,8 +27,6 @@ function gls = performGroundingLineAnalysisPresentday_transient(step,md_hist,md_
     % Initialize the grounding line array
     gls = [];
 
-    % Reinitialize level set for present day
-    dist_gl_presentday = reinitializelevelset(md_present, md_present.mask.ocean_levelset);
 
     % Loop through each transient step
     % for i = 1:nums
