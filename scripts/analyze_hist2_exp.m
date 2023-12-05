@@ -28,9 +28,9 @@ function results =ananlyze_hist2_exp(name);
 
         % Loop through each output data set
         %hisitoric distance
-        % glhistStruct.groundingLineDistance_PIGto1940=performGroundingLineAnalysisHistoric_transient_all(md_hist);
-        glhistStruct.groundingLineDistance_THWto1922=performGroundingLineAnalysisHistoric_transient(2,md_hist);
-        glhistStruct.groundingLineDistance_pig=performGroundingLineAnalysisHistoric_transient(1,md_hist);
+        glhistStruct.groundingLineDistance_PIGto1940=performGroundingLineAnalysisHistoric_transient_all(md_hist);
+        % glhistStruct.groundingLineDistance_THWto1922=performGroundingLineAnalysisHistoric_transient(2,md_hist);
+        % glhistStruct.groundingLineDistance_pig=performGroundingLineAnalysisHistoric_transient(1,md_hist);
         % comp smith et al.
         % rmseThicknessGradient_struc = performRMSEAnalysis_transient(3,md_hist,md_present);  % gives sructure of RMSE to smihr dhdt
 
