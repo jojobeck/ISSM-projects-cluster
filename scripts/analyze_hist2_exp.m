@@ -32,15 +32,15 @@ function results =ananlyze_hist2_exp(name);
         glhistStruct.groundingLineDistance_THWto1922=performGroundingLineAnalysisHistoric_transient(2,md_hist);
         % glhistStruct.groundingLineDistance_PIGto1940=performGroundingLineAnalysisHistoric_transient_all(md_hist);
         % comp smith et al.
-        % rmseThicknessGradient_struc = performRMSEAnalysis_transient(3,md_hist,md_present);  % gives sructure of RMSE to smihr dhdt
+        rmseThicknessGradient_struc = performRMSEAnalysis_transient(3,md_hist,md_present);  % gives sructure of RMSE to smihr dhdt
 
         % Store the results in the structure
         
-        % glpdStruc.groundingLineDistance_alltransient = performGroundingLineAnalysisPresentday_transientall(md_hist,md_present,dist_gl_presentday);  % give distance to present day gl each timestep
-        % runStruct.groundinglineDistance_pd =  glpdStruc;
-        % runStruct.groundinglineDistance_hist =  glhistStruct;
+        glpdStruc.groundingLineDistance_alltransient = performGroundingLineAnalysisPresentday_transientall(md_hist,md_present,dist_gl_presentday);  % give distance to present day gl each timestep
+        runStruct.groundinglineDistance_pd =  glpdStruc;
+        runStruct.groundinglineDistance_hist =  glhistStruct;
 
-        % runStruct.rmseThicknessGradient = rmseThicknessGradient_struc;
+        runStruct.rmseThicknessGradient = rmseThicknessGradient_struc;
 
         % Store the run structure in the results array
         results(runIndex).run = runName;
