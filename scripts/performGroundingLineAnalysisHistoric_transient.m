@@ -14,17 +14,23 @@ function gls = performGroundingLineAnalysisHistoric_transient(step,md_hist)
 
     % Check if the number of transient steps is non-positive
     nums = size(md_hist.results.TransientSolution, 2);
-    if nums <= 0
+    if nums <= 70
         error('Invalid number of transient steps. Ensure that md_hist has valid TransientSolution data.');
     end
 
     nums =  size(md_hist.results.TransientSolution,2);
 
 
-    gls =[];
-% for i=1 :nums
-    for i=1 :1
-        gl =calc_func_glchange_PigTHWpast(step,md_hist,i) ;
-        gls = [gls gl];
+    if step ==1%only wnat values form 1931-1970 for pig
+        gls =zeros(1,40);
+        for i=1 :1
+            gls(1,i) =calc_func_glchange_PigTHWpast(step,md_hist,i) ;
+        end
     end
 
+    if step ==2
+        gls =zeros(1,10);
+        for i=60 :60
+            gls(1,i-59) =calc_func_glchange_PigTHWpast(step,md_hist,i) ;
+        end
+    end
