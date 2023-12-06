@@ -48,5 +48,5 @@ function results =ananlyze_hist2_exp(name);
     end
 
     % Save the results to a file if needed
-    save('./Data/Tables/analysisResults.mat', 'results');
+    save('./Data/Tables/analysisResults_withparalell.mat', 'results');
 

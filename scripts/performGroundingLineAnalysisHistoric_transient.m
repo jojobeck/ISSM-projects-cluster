@@ -23,14 +23,14 @@ function gls = performGroundingLineAnalysisHistoric_transient(step,md_hist)
 
     if step ==1%only wnat values form 1931-1970 for pig
         gls =zeros(1,40);
-        for i=1 :1
+        for i=1 :40
             gls(1,i) =calc_func_glchange_PigTHWpast(step,md_hist,i) ;
         end
     end
 
     if step ==2
         gls =zeros(1,10);
-        for i=60 :60
+        for i=60 :70
             gls(1,i-59) =calc_func_glchange_PigTHWpast(step,md_hist,i) ;
         end
     end

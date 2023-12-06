@@ -2,7 +2,7 @@
 #PBS -P bi77
 #PBS -q normal
 #PBS -l ncpus=4
-#PBS -l walltime=00:05:00
+#PBS -l walltime=12:05:00
 #PBS -l mem=190GB
 #PBS -l jobfs=200GB
 #PBS -M johanna.beckmann@monash.edu
@@ -28,5 +28,8 @@ step=[1]
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_hist2_fun(${step})') , quit" > Analyze.log
 # matlab -nosplash -singleCompThread < analyze_script.m > /scratch/bi77/jb1863/$PBS_JOBID,ananlyze.log
 # argName='$arg'
-# matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_hist2_fun(${step},${PBS_NCPUS})') , quit" > Analyze.log
-matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, analyze_hist2_fun , quit" > Analyze.log
+matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_hist2_fun(${step},${PBS_NCPUS})') , quit" > Analyze.log
+# matlab numberOfWorkers-nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, analyze_hist2_fun , quit" > Analyze.log
+
+#####PBS -l nnodes=1
+###PBS -l ncpus_per_node=4
