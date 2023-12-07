@@ -5,7 +5,6 @@ function results =ananlyze_hist2_exp(name);
     T = readtable(namenew, 'Delimiter' , ',');
     % Number of runs and output data sets
     numRuns = size(T,1);
-    numDataSets = 101;
 
     % Initialize a structure array to store results
     results = struct('run', cell(1, numRuns), 'data', cell(1, numRuns));
@@ -14,8 +13,7 @@ function results =ananlyze_hist2_exp(name);
     % Reinitialize level set for present day
     dist_gl_presentday = reinitializelevelset(md_present, md_present.mask.ocean_levelset);
     % Loop through each run
-    % for runIndex = 1:numRuns
-    for runIndex = 1:1
+    for runIndex = 1:numRuns
         runName=['hist2_' T.model_names{runIndex}];
         model_pth = ['Models/' runName];
         %loadmodel 
@@ -48,5 +46,6 @@ function results =ananlyze_hist2_exp(name);
     end
 
     % Save the results to a file if needed
-    save('./Data/Tables/analysisResults_withparalell.mat', 'results');
+    name_save = ['./Data/Tables/analysisRuns_hist2_' name '_withparalell.mat'];
+    save(name_save, 'results');
 
