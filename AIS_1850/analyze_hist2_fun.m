@@ -9,7 +9,7 @@ function analayze_hist2_func(steps,numberOfWorkers)
     % org=organizer('repository',['/Volumes/Crucial X8/SAEF/issm_project/AIS_1850/Models'],'prefix',['AIS1850_'],'steps',steps, 'color', '34;47;2'); 
     clear steps;
 
-    if perform(org,'-1930_from_2ka_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x_gl_to_presentday'),% {{{
+    if perform(org,'-2030_from_2ka_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x_gl_to_presentday'),% {{{
 
         name ='historic_until_1930_from_1-2ka_PISMfriction_SMB4x.txt';
         tic

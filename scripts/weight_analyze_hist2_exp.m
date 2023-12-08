@@ -1,4 +1,7 @@
 function results =ananlyze_hist2_exp(name);
+    % Creates tablewith the minimum distance to the historic and  p.d. gorunding lines in allowed time window with indices of array.
+    % creates weights and order with in the experiment for the best to worse runo
+    % lists the best and worse models with the indice of the first table
     name_save = ['./Data/Tables/analysisRuns_hist2_' name '_withparalell.mat'];
     % name_save = ['./Data/Tables/analysisResults_withparalell.mat'];
     experiment = load(name_save);
@@ -71,17 +74,17 @@ function results =ananlyze_hist2_exp(name);
             A =min(experiment.results(i).data.rmseThicknessGradient.rmse_AIS);
             time_grad_AIS=find(experiment.results(i).data.rmseThicknessGradient.rmse_AIS == A,1,'first');
             grad_AIS_all =[grad_AIS_all; A];
-            time_grad_AIS_all =[time_grad_AIS_all; A];
+            time_grad_AIS_all =[time_grad_AIS_all; time_grad_AIS];
 
             A =min(experiment.results(i).data.rmseThicknessGradient.rmse_PIG);
             time_grad_PIG=find(experiment.results(i).data.rmseThicknessGradient.rmse_PIG == A,1,'first');
             grad_PIG_all =[grad_PIG_all; A];
-            time_grad_PIG_all =[time_grad_PIG_all; A];
+            time_grad_PIG_all =[time_grad_PIG_all; time_grad_PIG];
 
             A =min(experiment.results(i).data.rmseThicknessGradient.rmse_TOTTEN);
             time_grad_TOTTEN=find(experiment.results(i).data.rmseThicknessGradient.rmse_TOTTEN == A,1,'first');
             grad_TOTTEN_all =[grad_TOTTEN_all; A];
-            time_grad_TOTTEN_all =[time_grad_TOTTEN_all; A];
+            time_grad_TOTTEN_all =[time_grad_TOTTEN_all; time_grad_TOTTEN];
         end 
     end
     T = table(model_names,dist_to_PIG1940_all,dist_to_THW1992_all,dist_PIG_pd_all,dist_THW_pd_all,dist_Moscow_pd_all,dist_Totten_pd_all,grad_AIS_all,grad_PIG_all,grad_TOTTEN_all); 
@@ -107,6 +110,7 @@ function results =ananlyze_hist2_exp(name);
     Trun = readtable(namenew, 'Delimiter' , ','); 
     T_order =Trun;
     T_order = T_order(indices, :);
+    T_order.indices =indices;
     name_table = ['./Data/Tables/','orderd_experiments_weighted_within_exptype_' namo '.txt'];
     writetable(T_order, name_table);
 

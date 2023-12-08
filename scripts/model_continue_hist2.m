@@ -29,6 +29,8 @@ function md = model_continue_hist2(md_in_path)
     md.inversion.iscontrol=0;
     md.transient.isthermal=0;
     md.transient.isgroundingline=1;
+    md.transient.ismasstransport=1;
+    md.transient.isstressbalance=1;
     md.masstransport.spcthickness=NaN*ones(md.mesh.numberofvertices,1);
 
     %Load forcing data
@@ -61,7 +63,7 @@ function md = model_continue_hist2(md_in_path)
     md.timestepping.final_time=100;
     md.timestepping.time_step=1/24;
     md.settings.output_frequency=24*1;
-    md.transient.requested_outputs={'default'};
+    md.transient.requested_outputs={'default','TotalGroundedBmb','TotalFloatingBmb','IceVolume','IceVolumeAboveFloatation','GroundedArea','FloatingArea'};
 
     %Set melt / friction interpolation schemes
     md.groundingline.migration = 'SubelementMigration';
