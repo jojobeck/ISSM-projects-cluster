@@ -475,7 +475,7 @@ end% }}}
         for i =1:sz(2)
             t(i) = md.results.TransientSolution(i).time;
         end
-        t=t+1850;
+        t=t+1931;
 
 
         pos=md.mask.ice_levelset<0; %ice only
@@ -487,7 +487,7 @@ end% }}}
 
         %Plot Volume
         volume=[]; for i=1:length(t); volume=[volume md.results.TransientSolution(i).TotalFloatingBmb]; end
-        subplot(3,1,1); plot(t,volume); title('Total basal melt (m)');
+        subplot(5,1,1); plot(t,volume); title('Total basal melt (m)');
         msk = md.basalforcings.basin_id == 10;
         basin = md.basalforcings.basin_id;
         basin(~msk)=nan;
@@ -503,14 +503,35 @@ end% }}}
         for i=1:length(mean20); mean20(i)=mean(area(i:i+19)); end
         imin=find(min(mean20) == mean20);
         tavg= t(11:length(t)-10),
-        subplot(3,1,2); plot(t,area); title('avg melt basin 10');
+        subplot(5,1,2); plot(t,area); title('avg melt basin 10');
         tit =['20 year running mean, min from ',num2str(t(imin)),'-',num2str(t(imin+19))]
 
-        subplot(3,1,3);plot(tavg,mean20);title(tit);
+        subplot(5,1,3);plot(tavg,mean20);title(tit);
+        
+        msk = md.basalforcings.basin_id == 5;
+        basin = md.basalforcings.basin_id;
+        basin(~msk)=nan;
+        areas=GetAreas(md.mesh.elements,md.mesh.x,md.mesh.y);
+        data_vertices=sparse(md.mesh.elements(:),ones(numel(md.mesh.elements),1),repmat(areas.*basin,3,1),md.mesh.numberofvertices,1);
+        ms = isnan( data_vertices);
+        data_vertices(~ms)=10;
+
+        area=[]; for i=1:length(t); area=[area mean(md.results.TransientSolution(i).BasalforcingsFloatingiceMeltingRate(~ms))]; end
+        mean20 =zeros(sz-2);
+        n =  sz(2)-20;
+        mean20 = zeros([1 n]) ;
+        for i=1:length(mean20); mean20(i)=mean(area(i:i+19)); end
+        imin=find(min(mean20) == mean20);
+        tavg= t(11:length(t)-10),
+        subplot(5,1,4); plot(t,area); title('avg melt basin 5');
+        tit =['20 year running mean, min from ',num2str(t(imin)),'-',num2str(t(imin+19))]
+
+        subplot(5,1,5);plot(tavg,mean20);title(tit);
+
 
         xlabel('years')
         if save_fig,
-            nm = ['./figs/' md.miscellaneous.name 'timeseries.fig'];
+            nm = ['./figs/' md.miscellaneous.name '_melting_timeseries.fig'];
             savefig(nm);
         end
 
