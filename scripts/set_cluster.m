@@ -4,7 +4,7 @@ function cluster =set_cluster(clustername)
         cluster=gadi('np',48);
         cluster.mem=190;
         cluster.time=60*40;
-        cluster.project='bi77';
+        cluster.project='au88';
         cluster.queue='normal';
     else
         cluster=generic('name',oshostname(),'np',6);

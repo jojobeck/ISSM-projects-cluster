@@ -9,7 +9,7 @@ function md = model_continue_hist2(md_in_path)
     md.geometry.surface = surface;
     md.geometry.base = base;
     md.mask.ocean_levelset= md_in.results.TransientSolution(end).MaskOceanLevelset;
-    md.miscellaneous.name=['hist2_',md.miscellaneous.name];
+    md.miscellaneous.name=['hist2_ocean95percentile',md.miscellaneous.name];
     spl_name = split(md_in_path,'PISM');
     if size(spl_name,1)>1,
         disp('PISM hydrology');
@@ -36,8 +36,8 @@ function md = model_continue_hist2(md_in_path)
     %Load forcing data
     load './../Data/Atmosphere/ukesm_1931_2030_smb.mat';
     load './../Data/Ocean/ukesm_1931_2030_tf.mat';
-    load './../Data/Ocean/deltat_median.mat';
-    load './../Data/Ocean/gamma0_median.mat';
+    load './../Data/Ocean/deltat_95percentile.mat';
+    load './../Data/Ocean/gamma0_95percentile.mat';
     load './../Data/Ocean/basinid.mat';
     load './../Data/Ocean/tf_depths.mat';
 
@@ -46,13 +46,13 @@ function md = model_continue_hist2(md_in_path)
     md.smb.mass_balance = ukesm_smb_1931_2030 ; %already in m/year ice
 
     %Set ISMIP6 basal melt rate parameters
-    delta_t                     = deltat_median;
+    delta_t                     = deltat_95percentile;
     md.basalforcings            = basalforcingsismip6(md.basalforcings);
     md.basalforcings.basin_id   = basinid;
     md.basalforcings.num_basins = length(unique(basinid));
     md.basalforcings.delta_t    = delta_t;
     md.basalforcings.tf_depths  = tf_depths;
-    md.basalforcings.gamma_0    = gamma0_median;
+    md.basalforcings.gamma_0    = gamma0_95percentile;
     md.basalforcings.tf         = ukesm1_1931_2030_tf;
     md.basalforcings.islocal = 0;
 

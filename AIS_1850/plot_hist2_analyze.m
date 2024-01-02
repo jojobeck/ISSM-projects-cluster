@@ -29,70 +29,97 @@ function name=plot_hist2_analyze(steps,save_fig)
         figname_in='PISM_1932-2030_from2ka';
 
         name ='historic_until_1930_from_1-2ka_PISMfriction_SMB4x.txt';
-        parts = strsplit(name, 'from_');
-        parts2 =strsplit(parts{2},'_SMB4x.txt');
-        namo = parts2{1};
-
-
-        name_table = ['./Data/Tables/','orderd_experiments_weighted_within_exptype_' namo '.txt'];
-        T_order = readtable(name_table, 'Delimiter' , ',');
-        name_table = ['./Data/Tables/','time_min_distance_hist2_runs' namo '.txt'];
-        T_i = readtable(name_table, 'Delimiter' , ',');
-        i_end=size(T_order,1);
-        for i=1:i_end 
-            runName=['hist2_' T_order.model_names{i}];
-            model_pth = ['Models/' runName];
-
-            md_hist = loadmodel(model_pth);
-            figname =[figname_in '_' num2str(i)];
-
-
-            %TODO add figname change
-
-            j=T_order.indices(i);
-            ii = find(T_i.model_names==j);
-            %get the best inidces for hist and p.d. gl.
-            times_irun=zeros(1,6);
-            
-            times_irun(1)=T_i(ii,2).Variables;
-            times_irun(2)=T_i(ii,3).Variables+59;
-
-            times_irun(3)=T_i(ii,4).Variables+79;
-            times_irun(4)=T_i(ii,5).Variables+79;
-            times_irun(5)=T_i(ii,6).Variables+79;
-            times_irun(6)=T_i(ii,7).Variables+79;
-
-            %TODO: adhjust plooting MAKE fucntion above
-            plot_4glaciers_hist2eval(md_hist,times_irun,figname,save_fig);
-        end
+        make_3_best_plots(name,figname_in,save_fig);
     end% }}}
 if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x'),% {{{
+    name='historic_until_1930_from_2ka_Cfriction_mean_SMB4_submit.txt';
 
-    md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
-    figname='Cmean_1850_1930_from2ka';
-    md_end='_-1930_from_2ka_Cfriction_mean_SMB4_submit.mat';
+    figname_in='Cmean_1930-2030_from2ka';
+    make_3_best_plots(name,figname_in,save_fig);
 
-    plot_4glaciers(md_in,md_end,figname,save_fig)
 
 
 end% }}}`
 if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x'),% {{{
+    name = 'historic_until_1930_from_2ka_Cfriction_nn_SMB4_submit.txt';
 
-    md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat');
-    md_end ='_-1930_from_2ka_Cfriction_nn_SMB4_submit.mat';
-    figname='Cnn_1850_1930_from2ka';
-    plot_4glaciers(md_in,md_end,figname,save_fig)
+    figname_in='Cnn_1930-2030_from2ka';
 
+    make_3_best_plots(name,figname_in,save_fig);
 
 end% }}}
     if perform(org,'-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x'),% {{{
 
-        md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
+        figname_in='2INV_1932-2030_from2ka';
 
-        md_end = '_-1930_from_2ka_2INVCfriction_mean_SMB4_submit.mat';
+        name = 'historic_until_1930_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+       
 
-        figname='2Inv_1850_1930_from2ka';
+        make_3_best_plots(name,figname_in,save_fig);
 
-    plot_4glaciers(md_in,md_end,figname,save_fig)
+    end% }}}
+
+    if perform(org,'-1930_from_2ka_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x_gl_to_presentday_ocean95percentile'),% {{{
+
+        figname_in='PISM_1932-2030_from2ka';
+        name ='historic_until_1930_from_1-2ka_PISMfriction_SMB4x.txt';
+        make_3_best_plots_ocean95percentile(name,figname_in,save_fig);
+    end% }}}
+    if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_ocean95percentile'),% {{{
+        name='historic_until_1930_from_2ka_Cfriction_mean_SMB4_submit.txt';
+        figname_in='Cmean_1930-2030_from2ka';
+        make_3_best_plots_ocean95percentile(name,figname_in,save_fig);
+
+
+
+end% }}}
+if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x_ocean95percentile'),% {{{
+
+    name = 'historic_until_1930_from_2ka_Cfriction_nn_SMB4_submit.txt';
+    figname_in='Cnn_1930-2030_from2ka';
+    make_3_best_plots_ocean95percentile(name,figname_in,save_fig);
+
+
+
+end% }}}
+    if perform(org,'-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_ocean95percentile'),% {{{
+        name = 'historic_until_1930_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+        figname_in='2INV_1932-2030_from2ka';
+        make_3_best_plots_ocean95percentile(name,figname_in,save_fig);
+
+
+
+    end% }}}
+
+    if perform(org,'-1930_from_2ka_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x_gl_to_presentday_oceanPIG95percentile'),% {{{
+
+        figname_in='PISM_1932-2030_from2ka';
+        name ='historic_until_1930_from_1-2ka_PISMfriction_SMB4x.txt';
+        make_3_best_plots_oceanPIG95percentile(name,figname_in,save_fig);
+
+    end% }}}
+    if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_oceanPIG95percentile'),% {{{
+        name='historic_until_1930_from_2ka_Cfriction_mean_SMB4_submit.txt';
+        figname_in='Cmean_1930-2030_from2ka';
+        make_3_best_plots_oceanPIG95percentile(name,figname_in,save_fig);
+
+
+
+end% }}}
+if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x_oceanPIG95percentile'),% {{{
+
+    name = 'historic_until_1930_from_2ka_Cfriction_nn_SMB4_submit.txt';
+    figname_in='Cnn_1930-2030_from2ka';
+    make_3_best_plots_oceanPIG95percentile(name,figname_in,save_fig);
+
+
+
+end% }}}
+    if perform(org,'-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_oceanPIG95percentile'),% {{{
+        name = 'historic_until_1930_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+        make_3_best_plots_oceanPIG95percentile(name,figname_in,save_fig);
+        figname_in='2INV_1932-2030_from2ka';
+
+
 
     end% }}}

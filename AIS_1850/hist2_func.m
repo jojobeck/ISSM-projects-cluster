@@ -85,3 +85,156 @@ end% }}}
 
 
     end% }}}
+%test 95 percentile but hist 1 was still on meadian !!!
+
+    if perform(org,'-1930_from_2ka_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x_gl_to_presentday_ocean95percentile'),% {{{
+
+        name ='historic_until_1930_from_1-2ka_PISMfriction_SMB4x.txt';
+
+        namenew = [p_table 'cond_hist1_' name];
+        T = readtable(namenew, 'Delimiter' , ',');
+        for i =1:size(T,1)
+
+            md_in_path = ['Models/' T.model_names{i}];
+            md = model_continue_hist2_ocean95percentile(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+
+        end
+    end% }}}
+    if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_ocean95percentile'),% {{{
+        name='historic_until_1930_from_2ka_Cfriction_mean_SMB4_submit.txt';
+
+        namenew = [p_table 'cond_hist1_' name];
+        T = readtable(namenew, 'Delimiter' , ',');
+        for i =1:size(T,1)
+
+            md_in_path = ['Models/' T.model_names{i}];
+            md = model_continue_hist2_ocean95percentile(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly,
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+end% }}}`
+if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x_ocean95percentile'),% {{{
+
+    name = 'historic_until_1930_from_2ka_Cfriction_nn_SMB4_submit.txt';
+
+    namenew = [p_table 'cond_hist1_' name];
+    T = readtable(namenew, 'Delimiter' , ',');
+    for i =1:size(T,1)
+
+        md_in_path = ['Models/' T.model_names{i}];
+        md = model_continue_hist2_ocean95percentile(md_in_path);
+        md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+        if loadonly
+            % savemodel
+            save_misc_name(md);
+        end
+    end
+
+
+
+end% }}}
+    if perform(org,'-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_ocean95percentile'),% {{{
+        name = 'historic_until_1930_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+
+        namenew = [p_table 'cond_hist1_' name];
+        T = readtable(namenew, 'Delimiter' , ',');
+        for i =1:size(T,1)
+
+            md_in_path = ['Models/' T.model_names{i}];
+            md = model_continue_hist2_ocean95percentile(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+    end% }}}
+
+    if perform(org,'-1930_from_2ka_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x_gl_to_presentday_oceanPIG95percentile'),% {{{
+
+        name ='historic_until_1930_from_1-2ka_PISMfriction_SMB4x.txt';
+
+        namenew = [p_table 'cond_hist1_' name];
+        T = readtable(namenew, 'Delimiter' , ',');
+        for i =1:size(T,1)
+
+            md_in_path = ['Models/' T.model_names{i}];
+            md = model_continue_hist2_oceanPIG95percentile(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+
+        end
+    end% }}}
+    if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_oceanPIG95percentile'),% {{{
+        name='historic_until_1930_from_2ka_Cfriction_mean_SMB4_submit.txt';
+
+        namenew = [p_table 'cond_hist1_' name];
+        T = readtable(namenew, 'Delimiter' , ',');
+        for i =1:size(T,1)
+
+            md_in_path = ['Models/' T.model_names{i}];
+            md = model_continue_hist2_oceanPIG95percentile(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly,
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+end% }}}`
+if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x_oceanPIG95percentile'),% {{{
+
+    name = 'historic_until_1930_from_2ka_Cfriction_nn_SMB4_submit.txt';
+
+    namenew = [p_table 'cond_hist1_' name];
+    T = readtable(namenew, 'Delimiter' , ',');
+    for i =1:size(T,1)
+
+        md_in_path = ['Models/' T.model_names{i}];
+        md = model_continue_hist2_oceanPIG95percentile(md_in_path);
+        md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+        if loadonly
+            % savemodel
+            save_misc_name(md);
+        end
+    end
+
+
+
+end% }}}
+    if perform(org,'-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_oceanPIG95percentile'),% {{{
+        name = 'historic_until_1930_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+
+        namenew = [p_table 'cond_hist1_' name];
+        T = readtable(namenew, 'Delimiter' , ',');
+        for i =1:size(T,1)
+
+            md_in_path = ['Models/' T.model_names{i}];
+            md = model_continue_hist2_oceanPIG95percentile(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+    end% }}}
