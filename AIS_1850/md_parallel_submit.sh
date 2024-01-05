@@ -1,5 +1,5 @@
 #PBS -S /bin/bash                                                                                                                                                                                                                                                           
-#PBS -P bi77
+#PBS -P au88
 #PBS -q normal
 #PBS -l ncpus=48
 #PBS -l walltime=05:00:00
@@ -10,7 +10,7 @@
 #PBS -l software=matlab_monash
 #PBS -o HistSubmit.outlog
 #PBS -e HistSubmit.errlog
-#PBS -l storage=gdata/bi77
+#PBS -l storage=gdata/au88
 
 export ISSM_DIR=/home/565/jb1863/trunk
 source $ISSM_DIR/etc/environment.sh
@@ -23,10 +23,10 @@ module load matlab/R2021b
 # module load python3/3.11.0
 module load matlab_licence/monash
 # source $ISSM_DIR/scripts/startup.sh
-step=[1,3,5,7]
+step=[17,27,7]
 # step=[5,6,7,8]
 
-matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('hist_clim_func(${step},1)') , quit" > Hist2Submit.log
+matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('hist_clim_func(${step},0)') , quit" > Hist2Submit.log
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('hist2_func(${step},1)') , quit" > Hist2Submit.log
 ##################################
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, hist2_script, quit" > Hist2Submit.log

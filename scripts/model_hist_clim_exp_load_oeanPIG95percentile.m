@@ -10,7 +10,7 @@ function md =model_hist_clim_exp_load(md_in,loadonly)
         md.geometry.surface = surface;
         md.geometry.base = base;
         md.mask.ocean_levelset= md_in.results.TransientSolution(i).MaskOceanLevelset;
-        md.miscellaneous.name=['historic_clim_from_',num2str(i),'_',md_in.miscellaneous.name];
+        md.miscellaneous.name=['historic_clim_oceanPIG95percentile_from_',num2str(i),'_',md_in.miscellaneous.name];
         spl_name = split(md_in.miscellaneous.name,'PISM');
         if size(spl_name,1)>1,
             disp('PISM hydrology');

@@ -46,8 +46,8 @@ function md = model_continue_hist2(md_in_path)
     md.smb.mass_balance = ukesm_smb_1931_2030 ; %already in m/year ice
 
     %Set ISMIP6 basal melt rate parameters
-    delta_t                     = deltat_PIG_95percentile;
     md.basalforcings            = basalforcingsismip6(md.basalforcings);
+    delta_t                     = deltat_PIG_95percentile;
     md.basalforcings.basin_id   = basinid;
     md.basalforcings.num_basins = length(unique(basinid));
     md.basalforcings.delta_t    = delta_t;

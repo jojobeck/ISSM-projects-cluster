@@ -32,3 +32,60 @@ function post_analayze_hist2_func(steps)
         name = 'historic_until_1930_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
         weight_analyze_hist2_exp(name);
     end% }}}
+
+    if perform(org,'-1930_from_2ka_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x_gl_to_presentday_ocean95percentile'),% {{{
+
+        name ='historic_until_1930_from_1-2ka_PISMfriction_SMB4x.txt';
+        weight_analyze_hist2_exp_ocean95percentile(name);
+    end% }}}
+    if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_ocean95percentile'),% {{{
+        name='historic_until_1930_from_2ka_Cfriction_mean_SMB4_submit.txt';
+
+        weight_analyze_hist2_exp_ocean95percentile(name);
+
+
+end% }}}
+if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x_ocean95percentile'),% {{{
+
+    name = 'historic_until_1930_from_2ka_Cfriction_nn_SMB4_submit.txt';
+
+        weight_analyze_hist2_exp_ocean95percentile(name);
+
+
+end% }}}
+    if perform(org,'-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_ocean95percentile'),% {{{
+        name = 'historic_until_1930_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+
+
+        weight_analyze_hist2_exp_ocean95percentile(name);
+
+    end% }}}
+
+    if perform(org,'-1930_from_2ka_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x_gl_to_presentday_oceanPIG95percentile'),% {{{
+
+        name ='historic_until_1930_from_1-2ka_PISMfriction_SMB4x.txt';
+        weight_analyze_hist2_exp_oceanPIG95percentile(name);
+
+    end% }}}
+    if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_oceanPIG95percentile'),% {{{
+        name='historic_until_1930_from_2ka_Cfriction_mean_SMB4_submit.txt';
+
+        weight_analyze_hist2_exp_oceanPIG95percentile(name);
+
+
+end% }}}
+if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x_oceanPIG95percentile'),% {{{
+
+    name = 'historic_until_1930_from_2ka_Cfriction_nn_SMB4_submit.txt';
+
+        weight_analyze_hist2_exp_oceanPIG95percentile(name);
+
+
+end% }}}
+    if perform(org,'-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_oceanPIG95percentile'),% {{{
+        name = 'historic_until_1930_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+
+
+        weight_analyze_hist2_exp_oceanPIG95percentile(name);
+
+    end% }}}

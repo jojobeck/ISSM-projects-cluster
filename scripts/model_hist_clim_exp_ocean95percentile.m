@@ -1,4 +1,4 @@
-function md =model_hist_clim_exp_load(md_in,loadonly)
+function md =model_hist_clim_exp_ocean95percentile(md_in,loadonly)
 
     md=md_in;
     sz = size(md.results.TransientSolution);
@@ -10,7 +10,7 @@ function md =model_hist_clim_exp_load(md_in,loadonly)
         md.geometry.surface = surface;
         md.geometry.base = base;
         md.mask.ocean_levelset= md_in.results.TransientSolution(i).MaskOceanLevelset;
-        md.miscellaneous.name=['historic_clim_from_',num2str(i),'_',md_in.miscellaneous.name];
+        md.miscellaneous.name=['historic_clim_ocean95percentile_from_',num2str(i),'_',md_in.miscellaneous.name];
         spl_name = split(md_in.miscellaneous.name,'PISM');
         if size(spl_name,1)>1,
             disp('PISM hydrology');
@@ -30,6 +30,36 @@ function md =model_hist_clim_exp_load(md_in,loadonly)
         md.transient.isgroundingline=1;
         md.masstransport.spcthickness=NaN*ones(md.mesh.numberofvertices,1);
 
+        %Load forcing data
+        load './../Data/Atmosphere/ukesm_histo_clim_smb.mat';
+        load './../Data/Ocean/ukesm_histo_clim_tf.mat';
+        load './../Data/Ocean/deltat_95percentile.mat';
+        load './../Data/Ocean/gamma0_95percentile.mat';
+        load './../Data/Ocean/basinid.mat';
+        load './../Data/Ocean/tf_depths.mat';
+
+        %Set SMB Forcing Parameters
+        miroc_rcp85_smb(1:end-1,:) = miroc_rcp85_smb(1:end-1,:);
+        md.smb.mass_balance = miroc_rcp85_smb; %already in m/year ice
+
+        %Set ISMIP6 basal melt rate parameters
+        delta_t                     = deltat_95percentile;
+        md.basalforcings            = basalforcingsismip6(md.basalforcings);
+        md.basalforcings.basin_id   = basinid;
+        md.basalforcings.num_basins = length(unique(basinid));
+        md.basalforcings.delta_t    = delta_t;
+        md.basalforcings.tf_depths  = tf_depths;
+        md.basalforcings.gamma_0    = gamma0_95percentile;
+        md.basalforcings.tf         = obs_clim_tf;
+        md.basalforcings.islocal = 0;
+        %Model specifications
+        md.outputdefinition.definitions={};
+        md.timestepping.interp_forcing=0;
+        md.timestepping.start_time=1;
+        md.timestepping.final_time=1000;
+        md.timestepping.time_step=1/24;
+        md.settings.output_frequency=24*10;
+        md.transient.requested_outputs={'default','TotalFloatingBmb','BasalforcingsFloatingiceMeltingRate','IceVolume','IceVolumeAboveFloatation','GroundedArea','FloatingArea','TotalSmb','GroundinglineMassFlux'};
 
         %Set melt / friction interpolation schemes
         md.groundingline.migration = 'SubelementMigration';
@@ -43,10 +73,4 @@ function md =model_hist_clim_exp_load(md_in,loadonly)
         md.cluster=cluster;
         md.settings.waitonlock=0;
         md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
-        if loadonly;
-            % savemodel
-            pvel = './Models';
-            save_p= fullfile(pvel, md.miscellaneous.name);
-            save(save_p,'md','-v7.3');
-        end
     end

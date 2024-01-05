@@ -1,4 +1,4 @@
-function md =model_hist_clim_exp(md_in,loadonly)
+function md =model_hist_clim_exp_oceanPIG95percentile(md_in,loadonly)
 
     md=md_in;
     sz = size(md.results.TransientSolution);
@@ -10,7 +10,7 @@ function md =model_hist_clim_exp(md_in,loadonly)
         md.geometry.surface = surface;
         md.geometry.base = base;
         md.mask.ocean_levelset= md_in.results.TransientSolution(i).MaskOceanLevelset;
-        md.miscellaneous.name=['historic_clim_from_',num2str(i),'_',md_in.miscellaneous.name];
+        md.miscellaneous.name=['historic_clim_oceanPIG95percentile_from_',num2str(i),'_',md_in.miscellaneous.name];
         spl_name = split(md_in.miscellaneous.name,'PISM');
         if size(spl_name,1)>1,
             disp('PISM hydrology');
@@ -33,8 +33,8 @@ function md =model_hist_clim_exp(md_in,loadonly)
         %Load forcing data
         load './../Data/Atmosphere/ukesm_histo_clim_smb.mat';
         load './../Data/Ocean/ukesm_histo_clim_tf.mat';
-        load './../Data/Ocean/deltat_median.mat';
-        load './../Data/Ocean/gamma0_median.mat';
+        load './../Data/Ocean/deltat_PIG_95percentile.mat';
+        load './../Data/Ocean/gamma0_PIG_95percentile.mat';
         load './../Data/Ocean/basinid.mat';
         load './../Data/Ocean/tf_depths.mat';
 
@@ -43,13 +43,13 @@ function md =model_hist_clim_exp(md_in,loadonly)
         md.smb.mass_balance = miroc_rcp85_smb; %already in m/year ice
 
         %Set ISMIP6 basal melt rate parameters
-        delta_t                     = deltat_median;
         md.basalforcings            = basalforcingsismip6(md.basalforcings);
+        delta_t                     = deltat_PIG_95percentile;
+        md.basalforcings.gamma_0    = gamma0_PIG_95percentile;
         md.basalforcings.basin_id   = basinid;
         md.basalforcings.num_basins = length(unique(basinid));
         md.basalforcings.delta_t    = delta_t;
         md.basalforcings.tf_depths  = tf_depths;
-        md.basalforcings.gamma_0    = gamma0_median;
         md.basalforcings.tf         = obs_clim_tf;
         md.basalforcings.islocal = 0;
         %Model specifications

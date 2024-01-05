@@ -9,7 +9,6 @@ function make_3_best_plots(name,figname_in,save_fig)
         name_table = ['./Data/Tables/','time_min_distance_hist2_runs' namo '.txt'];
         T_i = readtable(name_table, 'Delimiter' , ',');
         i_end=size(T_order,1);
-% for i=1:3
         for i=1:1
             runName=['hist2_' T_order.model_names{i}];
             model_pth = ['Models/' runName];
