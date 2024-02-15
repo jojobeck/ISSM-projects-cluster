@@ -1,5 +1,5 @@
 #PBS -S /bin/bash                                                                                                                                                                                                                                                           
-#PBS -P bi77
+#PBS -P au88
 #PBS -q normal
 #PBS -l ncpus=4
 #PBS -l walltime=12:05:00
@@ -10,7 +10,7 @@
 #PBS -l software=matlab_monash
 #PBS -o Analyze.outlog
 #PBS -e Analyze.errlog
-#PBS -l storage=gdata/bi77
+#PBS -l storage=gdata/au88
 
 export ISSM_DIR=/home/565/jb1863/trunk
 source $ISSM_DIR/etc/environment.sh

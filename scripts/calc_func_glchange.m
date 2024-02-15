@@ -12,7 +12,7 @@ function gl_change=calc_func_glchange_presentday(steps,md_hist,md,dist_gl_presen
 
     
     data_tmp_smb = '/Users/jbec0008/SAEF/issm_projects/equi_1850/Data/Atmosphere/';
-    pth ='/g/data/bi77/SAEF/issm_projects/';
+    pth = '/g/data/au88/jb1863/SAEF/ISSM-projects-cluster/';
 
 
     org=organizer('repository',['./Models'],'prefix',['HIST1850_1930_'],'steps',steps, 'color', '34;47;2'); 

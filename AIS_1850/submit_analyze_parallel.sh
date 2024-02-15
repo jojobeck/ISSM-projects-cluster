@@ -1,5 +1,5 @@
 #PBS -S /bin/bash                                                                                                                                                                                                                                                           
-#PBS -P bi77
+#PBS -P au88
 #PBS -q normal
 #PBS -l ncpus=16
 #PBS -l walltime=12:00:00
@@ -10,7 +10,7 @@
 #PBS -l software=matlab_monash
 #PBS -o Analyze.outlog
 #PBS -e Analyze.errlog
-#PBS -l storage=gdata/bi77
+#PBS -l storage=gdata/au88
 
 export ISSM_DIR=/home/565/jb1863/trunk
 source $ISSM_DIR/etc/environment.sh
@@ -24,8 +24,6 @@ module load matlab/R2021b
 module load matlab_licence/monash
 # source $ISSM_DIR/scripts/startup.sh
 
-step=[5,6,7,8,9,10,11,12]
-# matlab -nosplash -singleCompThread < analyze_script.m > /scratch/bi77/jb1863/$PBS_JOBID,ananlyze.log
-# argName='$arg'
-matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_hist2_fun(${step},${PBS_NCPUS})') , quit" > Analyze.log
-# matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_fun(${step})') , quit" > Analyze.log
+step=[4]
+matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_clim_fun(${step},${PBS_NCPUS})') , quit" > Analyze.log
+# matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_hist2_fun(${step},${PBS_NCPUS})') , quit" > Analyze.log

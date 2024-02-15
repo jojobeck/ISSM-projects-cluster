@@ -17,58 +17,58 @@ function md=run_func(steps,loadonly)
     % InterpFromMeshToMesh2d
 
     % clim runs normal melt
-    if perform(org,'-1930_from_2ka_PISM_submit'),% {{{
+    if perform(org,'clim_from_2ka_PISM_submit'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x.mat');
         md = model_hist_clim_exp(md_in,loadonly);
 
     end% }}}
-    if perform(org,'-1930_from_2ka_PISM_load'),% {{{
+    if perform(org,'clim_from_2ka_PISM_load'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x.mat');
         md = model_hist_clim_exp_load(md_in,loadonly);
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_nn_SMB4_submit'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_nn_SMB4_submit'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat');
         md = model_hist_clim_exp(md_in,loadonly);           
 
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_nn_SMB4_load'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_nn_SMB4_load'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat');
         md = model_hist_clim_exp_load(md_in,loadonly);           
 
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_mean_SMB4_submit'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_mean_SMB4_submit'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp(md_in,loadonly);           
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_mean_SMB4_load'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_mean_SMB4_load'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_load(md_in,loadonly);           
 
     end% }}}
-    if perform(org,'-1930_from_2ka_2INVCfriction_mean_SMB4_submit'),% {{{
+    if perform(org,'clim_from_2ka_2INVCfriction_mean_SMB4_submit'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp(md_in,loadonly);           
 
 
     end% }}}
-    if perform(org,'-1930_from_2ka_2INVCfriction_mean_SMB4_load'),% {{{
+    if perform(org,'clim_from_2ka_2INVCfriction_mean_SMB4_load'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_load(md_in,loadonly);           
 
     end% }}}
-    if perform(org,'-1930_from_1ka_2INVCfriction_mean_SMB4_submit'),% {{{
+    if perform(org,'clim_from_1ka_2INVCfriction_mean_SMB4_submit'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp(md_in,loadonly);           
@@ -76,7 +76,7 @@ function md=run_func(steps,loadonly)
 
 
     end% }}}
-    if perform(org,'-1930_from_1ka_2INVCfriction_mean_SMB4_load'),% {{{
+    if perform(org,'clim_from_1ka_2INVCfriction_mean_SMB4_load'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_load(md_in,loadonly);           
@@ -84,58 +84,58 @@ function md=run_func(steps,loadonly)
     end% }}}
 
     % clim runs 95 percentile melt
-    if perform(org,'-1930_from_2ka_PISM_submit_ocean95percentile'),% {{{
+    if perform(org,'clim_from_2ka_PISM_submit_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x.mat');
         md = model_hist_clim_exp_ocean95percentile(md_in,loadonly);
 
     end% }}}
-    if perform(org,'-1930_from_2ka_PISM_load_ocean95percentile'),% {{{
+    if perform(org,'clim_from_2ka_PISM_load_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x.mat');
         md = model_hist_clim_exp_load_ocean95percentile(md_in,loadonly);
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_nn_SMB4_submit_ocean95percentile'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_nn_SMB4_submit_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat');
         md = model_hist_clim_exp_ocean95percentile(md_in,loadonly);           
 
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_nn_SMB4_load_ocean95percentile'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_nn_SMB4_load_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat');
         md = model_hist_clim_exp_load_ocean95percentile(md_in,loadonly);           
 
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_mean_SMB4_submit_ocean95percentile'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_mean_SMB4_submit_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_ocean95percentile(md_in,loadonly);           
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_mean_SMB4_load_ocean95percentile'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_mean_SMB4_load_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_load_ocean95percentile(md_in,loadonly);           
 
     end% }}}
-    if perform(org,'-1930_from_2ka_2INVCfriction_mean_SMB4_submit_ocean95percentile'),% {{{
+    if perform(org,'clim_from_2ka_2INVCfriction_mean_SMB4_submit_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_ocean95percentile(md_in,loadonly);           
 
 
     end% }}}
-    if perform(org,'-1930_from_2ka_2INVCfriction_mean_SMB4_load_ocean95percentile'),% {{{
+    if perform(org,'clim_from_2ka_2INVCfriction_mean_SMB4_load_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_load_ocean95percentile(md_in,loadonly);           
 
     end% }}}
-    if perform(org,'-1930_from_1ka_2INVCfriction_mean_SMB4_submit_ocean95percentile'),% {{{
+    if perform(org,'clim_from_1ka_2INVCfriction_mean_SMB4_submit_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_ocean95percentile(md_in,loadonly);           
@@ -143,65 +143,65 @@ function md=run_func(steps,loadonly)
 
 
     end% }}}
-    if perform(org,'-1930_from_1ka_2INVCfriction_mean_SMB4_load_ocean95percentile'),% {{{
+    if perform(org,'clim_from_1ka_2INVCfriction_mean_SMB4_load_ocean95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_load_ocean95percentile(md_in,loadonly);           
 
     end% }}}
     % clim runs PIG 95 percentile melt
-    if perform(org,'-1930_from_2ka_PISM_submit_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_2ka_PISM_submit_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x.mat');
         md = model_hist_clim_exp_oceanPIG95percentile(md_in,loadonly);
 
     end% }}}
-    if perform(org,'-1930_from_2ka_PISM_load_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_2ka_PISM_load_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x.mat');
         md = model_hist_clim_exp_load_oceanPIG95percentile(md_in,loadonly);
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_nn_SMB4_submit_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_nn_SMB4_submit_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat');
         md = model_hist_clim_exp_oceanPIG95percentile(md_in,loadonly);           
 
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_nn_SMB4_load_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_nn_SMB4_load_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat');
         md = model_hist_clim_exp_load_oceanPIG95percentile(md_in,loadonly);           
 
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_mean_SMB4_submit_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_mean_SMB4_submit_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_oceanPIG95percentile(md_in,loadonly);           
 
     end% }}}
-    if perform(org,'-1930_from_2ka_Cfriction_mean_SMB4_load_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_2ka_Cfriction_mean_SMB4_load_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_load_oceanPIG95percentile(md_in,loadonly);           
 
     end% }}}
-    if perform(org,'-1930_from_2ka_2INVCfriction_mean_SMB4_submit_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_2ka_2INVCfriction_mean_SMB4_submit_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_oceanPIG95percentile(md_in,loadonly);           
 
 
     end% }}}
-    if perform(org,'-1930_from_2ka_2INVCfriction_mean_SMB4_load_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_2ka_2INVCfriction_mean_SMB4_load_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_load_oceanPIG95percentile(md_in,loadonly);           
 
     end% }}}
-    if perform(org,'-1930_from_1ka_2INVCfriction_mean_SMB4_submit_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_1ka_2INVCfriction_mean_SMB4_submit_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_oceanPIG95percentile(md_in,loadonly);           
@@ -209,7 +209,7 @@ function md=run_func(steps,loadonly)
 
 
     end% }}}
-    if perform(org,'-1930_from_1ka_2INVCfriction_mean_SMB4_load_oceanPIG95percentile'),% {{{
+    if perform(org,'clim_from_1ka_2INVCfriction_mean_SMB4_load_oceanPIG95percentile'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x.mat');
         md = model_hist_clim_exp_load_oceanPIG95percentile(md_in,loadonly);           
