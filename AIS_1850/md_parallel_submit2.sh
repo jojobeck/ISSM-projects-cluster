@@ -1,5 +1,5 @@
 #PBS -S /bin/bash                                                                                                                                                                                                                                                           
-#PBS -P au88
+#PBS -P bi77
 #PBS -q normal
 #PBS -l ncpus=48
 #PBS -l walltime=05:00:00
@@ -8,9 +8,9 @@
 #PBS -M johanna.beckmann@monash.edu
 #PBS -l wd
 #PBS -l software=matlab_monash
-#PBS -o HistSubmit.outlog
-#PBS -e HistSubmit.errlog
-#PBS -l storage=gdata/au88
+#PBS -o HistSubmit2.outlog
+#PBS -e HistSubmit2.errlog
+#PBS -l storage=gdata/bi77
 
 export ISSM_DIR=/home/565/jb1863/trunk
 source $ISSM_DIR/etc/environment.sh
@@ -23,17 +23,9 @@ module load matlab/R2021b
 # module load python3/3.11.0
 module load matlab_licence/monash
 # source $ISSM_DIR/scripts/startup.sh
-# step=[17,27,7]
-# step=[8,18,28]
-stephist1=[9]
-stephist2=[4]
-# step=[5,6,7,8]
+step=[9,10,11,12]
 
-# matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('hist_clim_func(${step},1)') , quit" > Hist2Submit.log
-# matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('hist1_from_1850climmean_func(${stephist1},1)') , quit" > Hist1fromClimSubmit.log
-
-matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('hist2_func(${stephist2},1)') , quit" > Hist2Submit.log
-##################################
+matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('hist2_func(${step},1)') , quit" > Hist2Submit2.log
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, hist2_script, quit" > Hist2Submit.log
 # matlab -nodisplay -nosplash -r "outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, /home/565/jb1863/SAEF/issm_projects/AIS_1850/parallel_hist_script.m, quit" > $PBS_JOBID.log
 # matlab  -nodesktop -nosplash -r -singleCompThread "outputDir='$PBS_JOBFS', hist_script.m, quit" > $PBS_JOBID.log

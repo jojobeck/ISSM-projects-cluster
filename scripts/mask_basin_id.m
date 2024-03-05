@@ -1,5 +1,10 @@
-function mask = mask_basin_id(md, num)
+function mask = mask_basin_id(md, num, AsIceLevelset);
+    % gives back a mask on number of verecies
+
     % Create a mask based on the specified basin ID
+    if nargin < 3 
+        AsIceLevelset= 0;  % Default value when AsIceLevelse tis not providedi gives mask 1,0 /ice,no ice
+    end
     
     % Input validation
     if nargin < 2
@@ -30,7 +35,8 @@ function mask = mask_basin_id(md, num)
     areas = GetAreas(md.mesh.elements, md.mesh.x, md.mesh.y);
     
     % Create data_vertices using sparse matrix
-    data_vertices = sparse(md.mesh.elements(:), ones(numel(md.mesh.elements), 1), repmat(areas .* basin, 3, 1), md.mesh.numberofvertices, 1);
+    data_vertices_matrix = sparse(md.mesh.elements(:), ones(numel(md.mesh.elements), 1), repmat(areas .* basin, 3, 1), md.mesh.numberofvertices, 1);
+    data_vertices = nonzeros(data_vertices_matrix);
     
     % Check for NaN values in data_vertices
     ms = isnan(data_vertices);
@@ -40,5 +46,12 @@ function mask = mask_basin_id(md, num)
     
     % Create the final mask
     mask = ~ms;
+    if AsIceLevelset==1,
+        % give mask similar to levelset , -1 for ice 1 for no ice
+        mask = -1*mask;
+        mn = mask ==0;
+        mask(mn)=1;
+    end
+            
 end
 

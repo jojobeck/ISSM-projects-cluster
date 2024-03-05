@@ -67,14 +67,15 @@ if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x'),% {{{
 
 
 end% }}}
+    % for now iam taking all his1 runs to see if there is a movements in hist 2
     if perform(org,'-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x'),% {{{
-        name = 'historic_until_1930_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+        name = 'historic_clim_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+        namenew = [p_table 'cond_clim_' name];
 
-        namenew = [p_table 'cond_hist1_' name];
         T = readtable(namenew, 'Delimiter' , ',');
         for i =1:size(T,1)
 
-            md_in_path = ['Models/' T.model_names{i}];
+            md_in_path=['Models/' 'hist1_' T.model_names{i}];
             md = model_continue_hist2(md_in_path);
             md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
             if loadonly

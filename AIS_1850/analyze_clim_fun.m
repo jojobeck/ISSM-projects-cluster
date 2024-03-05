@@ -214,8 +214,8 @@ end% }}}
             dist_THW_pd=calc_func_glchange_presentday(2,md,md_present,dist_gl_presentday);
             dist_Moscow_pd=calc_func_glchange_presentday(3,md,md_present,dist_gl_presentday);
             dist_Totten_pd=calc_func_glchange_presentday(4,md,md_present,dist_gl_presentday);
-            dist_to_PIG1940=calc_func_glchange_PigTHWpast(1,md);
-            dist_to_THW1992  =calc_func_glchange_PigTHWpast(2,md);
+            dist_to_PIG1940=calc_func_noglexeed_PigTHWpast_Cnn_Cmean(1,md);
+            dist_to_THW1992  =calc_func_noglexeed_PigTHWpast_Cnn_Cmean(2,md);
             disp(dist_to_THW1992);
             disp(dist_to_PIG1940);
             disp(name);

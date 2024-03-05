@@ -7,4 +7,8 @@ AIS_1850/*.toolkits
 AIS_1850/*.outlog
 AIS_1850/*.errlog
 AIS_1850/*.log
+AIS_1850/._*
+AIS_1850/trash_save/
+AIS_1850/example_sh/
+AIS_1850/InterpFromGrid.mexmaci64
 

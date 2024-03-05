@@ -13,12 +13,7 @@ function name=plot_hist2_analyze(steps,save_fig)
     org=organizer('repository',['./Models'],'prefix',['HIST1850_1930_'],'steps',steps, 'color', '34;47;2'); 
     % org=organizer('repository',['/Volumes/Crucial X8/SAEF/issm_project/AIS_1850/Models'],'prefix',['AIS1850_'],'steps',steps, 'color', '34;47;2'); 
     clear steps;
-    datadir= '/Users/jbec0008/SAEF/datasets/';
-    data_smb='/Volumes/Crucial X8/SAEF/ISMIP6/data_and_preprocessing/preprocess/SMB_JOHANNA/';
-    data_2km_xy='/Volumes/Crucial X8/SAEF/ISMIP6/data_and_preprocessing/published_data/ISMIP6/AtmosphericForcing/noresm1-m_rcp8.5/';
-    data_ocean='/Volumes/Crucial X8/SAEF/ISMIP6/data_and_preprocessing/published_data/ISMIP6/Ocean/';
-    data_tmp_ocean = '/Users/jbec0008/SAEF/issm_projects/equi_1850/Data/Ocean/';
-    data_tmp_smb = '/Users/jbec0008/SAEF/issm_projects/equi_1850/Data/Atmosphere/';
+    p_table = 'Data/Tables/';
     % loadonly=1;
     % InterpFromMeshToMesh2d
 
@@ -121,5 +116,28 @@ end% }}}
         figname_in='2INV_1932-2030_from2ka';
 
 
+
+    end% }}}
+    % plot all the runs
+    if perform(org,'-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_plotall'),% {{{
+
+        figname_in='2INV_1932-2030_from2ka';
+
+        name = 'historic_clim_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+        namenew = [p_table 'cond_clim_' name];
+
+        T = readtable(namenew, 'Delimiter' , ',');
+        for i =1:size(T,1)
+
+            mdin_path=['Models/' 'hist2_hist1_' T.model_names{i}];
+            figname=[ 'hist2_hist1_' T.model_names{i}];
+            md_in=loadmodel(mdin_path);
+            plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+            plots_2d_all_transient(md_in,figname,save_fig);
+
+        end
+       
+
+% make_3_best_plots(name,figname_in,save_fig);
 
     end% }}}

@@ -24,11 +24,10 @@ module load matlab/R2021b
 module load matlab_licence/monash
 # source $ISSM_DIR/scripts/startup.sh
 
-step=[5,6,7,8,9,10,11,12]
-step=[13]
+step=[1]
 # step=3
 # matlab -nosplash -singleCompThread < analyze_script.m > /scratch/bi77/jb1863/$PBS_JOBID,ananlyze.log
 # argName='$arg'
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('plot_test') , quit" > Plot_Analyze_${PBS_JOBID}.log
-matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('plot_hist2_analyze(${step},1)') , quit" > PlotAnalyze.log
+matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('plot_test_functions(${step},1)') , quit" > PlotAnalyze.log
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, analyze_script , quit" > Analyze_${PBS_JOBID}.log
