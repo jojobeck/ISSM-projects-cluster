@@ -24,8 +24,9 @@ module load matlab/R2021b
 module load matlab_licence/monash
 # source $ISSM_DIR/scripts/startup.sh
 
-step=[4]
+step=[5]
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_clim_fun(${step},${PBS_NCPUS})') , quit" > Analyze.log
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS' run('post_analyze_clim(${step})') , quit" > PostAnalyze.log
-matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('post_analyze_clim(${step})') , quit" > PostAnalyze.log
+# matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('post_analyze_clim(${step})') , quit" > PostAnalyze.log
+matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_clim_fun(${step})') , quit" > PostAnalyze.log
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('analyze_hist2_fun(${step},${PBS_NCPUS})') , quit" > Analyze.log

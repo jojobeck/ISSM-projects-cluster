@@ -45,20 +45,34 @@ function name=plot_analyze(steps,save_fig)
     end% }}}
 if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x'),% {{{
 
-    md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
-    figname='Cmean_1850_1930_from2ka';
-    md_end='_-1930_from_2ka_Cfriction_mean_SMB4_submit.mat';
 
-    plot_4glaciers(md_in,md_end,figname,save_fig)
+    for i =1:21
+
+            modelname  = ['hist1_historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat']
+            mdin_path = ['Models/' modelname];
+
+            figname=modelname;
+            md_in=loadmodel(mdin_path);
+            plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+            plots_2d_all_transient(md_in,figname,save_fig);
+
+    end
 
 
 end% }}}`
 if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x'),% {{{
 
-    md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat');
-    md_end ='_-1930_from_2ka_Cfriction_nn_SMB4_submit.mat';
-    figname='Cnn_1850_1930_from2ka';
-    plot_4glaciers(md_in,md_end,figname,save_fig)
+    for i =1:21
+
+            modelname  = ['hist1_historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat']
+            mdin_path = ['Models/' modelname];
+
+            figname=modelname;
+            md_in=loadmodel(mdin_path);
+            plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+            plots_2d_all_transient(md_in,figname,save_fig);
+
+    end
 
 
 end% }}}
@@ -82,3 +96,52 @@ end% }}}
 
 
     end% }}}
+% oceanpig95percentile
+    if perform(org,'clim-1930_from_2ka_RedoforTHW_nobasal_melt_nonlocal_2ka_Cfriction_mean_SMB4x_95oceanPIGpercentile'),% {{{
+        for i =1:21
+
+            modelname  = ['hist1_historic_clim_oceanPIG95percentile_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat']
+            mdin_path = ['Models/' modelname];
+
+            figname=modelname;
+            md_in=loadmodel(mdin_path);
+            plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+            plots_2d_all_transient(md_in,figname,save_fig);
+
+        end
+
+
+
+
+    end% }}}
+    %p friction
+if perform(orgA,'-1930_nobasal_melt_nonlocal_2ka_RedoforTHW_Cfriction_mean_SMB4x_cfrition0.75'),% {{{
+
+
+    i =10;
+
+    modelname  = ['hist1_historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.75']
+    mdin_path = ['Models/' modelname];
+    figname=modelname;
+    md_in=loadmodel(mdin_path);
+    plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+% plots_2d_all_transient(md_in,figname,save_fig);
+
+
+
+end% }}}`
+if perform(orgA,'-1930_nobasal_melt_nonlocal_2ka_RedoforTHW_Cfriction_mean_SMB4x_cfrition0.5'),% {{{
+
+
+    i =10;
+
+    modelname  = ['hist1_historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0-2ka_Cfriction_mean_SMB4x_cfriction0.5']
+    mdin_path = ['Models/' modelname];
+    figname=modelname;
+    md_in=loadmodel(mdin_path);
+    plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+% plots_2d_all_transient(md_in,figname,save_fig);
+
+
+
+end% }}}`

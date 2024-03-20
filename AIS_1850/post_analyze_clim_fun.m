@@ -77,4 +77,22 @@ end% }}}
          writetable(T,namenew);
 
     end% }}}
+% ocen95PIGpercentile
+    if perform(org,'from_2ka_2InvCfriction_mean_SMB4x'),% {{{
+        name = 'historic_clim_oceanPIG95percentile_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
+
+        md_end= '_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat'
+
+        cond =condition_clim(p_table,name);
+        namenew = [p_table 'cond_clim_' name];
+        model_names = strings(size(cond));
+        for i =1:size(cond),
+            namem=['historic_clim_from_',num2str(cond(i)),md_end];
+            model_names(i)=namem;
+         end
+         T= table(model_names);
+         writetable(T,namenew);
+
+    end% }}}
+
 

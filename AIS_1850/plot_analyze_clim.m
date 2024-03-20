@@ -107,3 +107,52 @@ function name=plot_analyze(steps,save_fig)
 
 
     end% }}}
+    %all for other cfriticon p 
+    if perform(org,'clim_from_2ka_2INVCfriction_mean_SMB4_cfriction0.75'),% {{{
+
+        md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.75');
+        i_in=10;
+        make_3_all_clim_p_cfriction_plot(md_in,md_present,save_fig,i_in)
+
+
+    end% }}}
+    if perform(org,'clim_from_2ka_2INVCfriction_mean_SMB4_cfriction0.5'),% {{{
+
+        md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.5');
+        i_in=10;
+        make_3_all_clim_p_cfriction_plot(md_in,md_present,save_fig,i_in)
+
+
+    end% }}}
+    if perform(org,'clim_from_2ka_2INVCfriction_mean_SMB4_cfriction0.25'),% {{{
+
+        md_in=loadmodel('./Models/AIS1850_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.25');
+        i_in=10;
+        make_3_all_clim_p_cfriction_plot(md_in,md_present,save_fig,i_in)
+
+
+    end% }}}
+    if perform(org,'clim_from_2ka_Cfriction_mean_SMB4_cfriction0.75'),% {{{
+
+        md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.75');
+        i_in=10;
+        make_3_all_clim_p_cfriction_plot(md_in,md_present,save_fig,i_in)
+
+
+    end% }}}
+    if perform(org,'clim_from_2ka_Cfriction_mean_SMB4_cfriction0.5'),% {{{
+
+        md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.5');
+        i_in=10;
+        make_3_all_clim_p_cfriction_plot(md_in,md_present,save_fig,i_in)
+
+
+    end% }}}
+    if perform(org,'clim_from_2ka_Cfriction_mean_SMB4_cfriction0.25'),% {{{
+
+        md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.25');
+        i_in=10;
+        make_3_all_clim_p_cfriction_plot(md_in,md_present,save_fig,i_in)
+
+
+    end% }}}

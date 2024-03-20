@@ -16,8 +16,8 @@ function plot_4glaciers_clim(md,md_present,figname,save_fig)
     fl1 = expread('./../Exp/THW_1992.exp');
     fl = expread('./../Exp/PIG_1940.exp');
 
-    CM = jet(floor(sz(2)/5));
-    cmap = flip(autumn(floor(sz(2)/5)+1),1); % yellow -> red, with 61 colors (for 61 lines)
+    CM = jet(floor(sz(2)));
+    cmap = flip(autumn(floor(sz(2))+1),1); % yellow -> red, with 61 colors (for 61 lines)
     c_lim=1000;
     C=whiteblue(-c_lim,c_lim);
 
@@ -36,13 +36,13 @@ function plot_4glaciers_clim(md,md_present,figname,save_fig)
     hold on; plot(fl1.x,fl1.y,'-','Color','red','LineWidth',5,'Displayname','THW-1992');
     hold on; plot(fl.x,fl.y,'-','Color','red','LineWidth',5,'Displayname','PIG-1940');
     set(gca(),'ColorOrder',cmap);
-    for i =1:10:sz(2),
+    for i =1:2:sz(2),
         hii=isoline(md,md.results.TransientSolution(i).MaskOceanLevelset,'value',0,'output','matrix','Displayname',i);
-        val= i*10;
+        val= i*50;
         hold on; plot(hii(:,1),hii(:,2),'-','Displayname',[num2str(val)] );
     end
     if save_fig,
-        nm = ['./figs/' figname 'PIG_hist2.png'];
+        nm = ['./figs/' figname 'PIG.png'];
         saveas(gcf,nm);
     end
     plotmodel(md_present,'figure',2,'visible','off','title','Thwaites', 'data', md_present.geometry.bed,...
@@ -57,15 +57,15 @@ function plot_4glaciers_clim(md,md_present,figname,save_fig)
     hold on; plot(fl1.x,fl1.y,'-','Color','red','LineWidth',5,'Displayname','THW-1992');
     hold on; plot(fl.x,fl.y,'-','Color','red','LineWidth',5,'Displayname','PIG-1940');
     set(gca(),'ColorOrder',cmap);
-    for i =1:10:sz(2),
+    for i =1:2:sz(2),
         hii=isoline(md,md.results.TransientSolution(i).MaskOceanLevelset,'value',0,'output','matrix','Displayname',i);
-        val= i*10;
+        val= i*50;
         hold on; plot(hii(:,1),hii(:,2),'-','Displayname',[num2str(val)] );
     end
 
     hold off;
     if save_fig,
-        nm = ['./figs/' figname 'THW_hist2.png'];
+        nm = ['./figs/' figname 'THW.png'];
         saveas(gcf,nm);
     end
 
@@ -81,14 +81,14 @@ function plot_4glaciers_clim(md,md_present,figname,save_fig)
     hold on; plot(fl1.x,fl1.y,'-','Color','red','LineWidth',5,'Displayname','THW-1992');
     hold on; plot(fl.x,fl.y,'-','Color','red','LineWidth',5,'Displayname','PIG-1940');
     set(gca(),'ColorOrder',cmap);
-    for i =1:10:sz(2),
+    for i =1:2:sz(2),
         hii=isoline(md,md.results.TransientSolution(i).MaskOceanLevelset,'value',0,'output','matrix','Displayname',i);
-        val= i*10;
+        val= i*50;
         hold on; plot(hii(:,1),hii(:,2),'-','Displayname',[num2str(val)] );
     end
 
     hold off;
     if save_fig,
-        nm = ['./figs/' figname 'TOTTEN_hist2.png'];
+        nm = ['./figs/' figname 'TOTTEN.png'];
         saveas(gcf,nm);
     end

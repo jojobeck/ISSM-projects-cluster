@@ -20,14 +20,42 @@ function pre_calcValsfor_transientplotting(steps)
 
     % clim runs 10-12c
     % plot all runs g.l.
-    if perform(org,'calc_vals_for_mytest_my_plotting_functions'),% {{{
+    if perform(org,'calc_vals_for_mytest_my_plotting_functions_clim'),% {{{
 
-        md = loadmodel('Models/ISMIP6Antarctica_Test_groundonline_flux_output.mat');
+        md = loadmodel('Models/historic_clim_from_9_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
 
 
 
-        pre_plot_calcVals(md,1);
-        pre_plot_calcVals(md,2);
+% pre_plot_calcVals(md,1);
+        % pre_plot_calcVals(md,2);  % not basin id for clim
+        pre_plot_calcVals(md,3);
+
+
+
+
+    end% }}}
+    if perform(org,'calc_vals_for_mytest_my_plotting_functions_hist1'),% {{{
+
+        md = loadmodel('Models/hist1_historic_clim_from_9_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
+
+
+
+% pre_plot_calcVals(md,1);
+% pre_plot_calcVals(md,2);
+        pre_plot_calcVals(md,3);
+
+
+
+
+    end% }}}
+    if perform(org,'calc_vals_for_mytest_my_plotting_functions_hist2'),% {{{
+
+        md = loadmodel('Models/hist2_hist1_historic_clim_from_9_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
+
+
+
+% pre_plot_calcVals(md,1);
+% pre_plot_calcVals(md,2);
         pre_plot_calcVals(md,3);
 
 

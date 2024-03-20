@@ -229,7 +229,7 @@ if perform(org,'1931-2030-OceanForcing')% {{{
 	% save('./../Data/Atmosphere/ukesm_1932_2030_smb.mat','ukesm_smb_1931_2030');
 
 end %}}}
-    % submit and load hist1 run starting fram apporopiate clim 1850 forcing
+    % submit and load hist1 run starting frrom all clim forifnc 
     if perform(org,'-1930_from_2ka_PISM_submit'),% {{{
 
         md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_PISMfriction_SMB4x.mat');
@@ -313,148 +313,65 @@ end %}}}
     end% }}}
     if perform(org,'-1930_from_2ka_Cfriction_nn_SMB4_submit'),% {{{
 
-        md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat');
-        md=md_in;
-        sz = size(md.results.TransientSolution);
-        for i =4:4,
-            base = md_in.results.TransientSolution(i).Base;
-            thickness = md_in.results.TransientSolution(i).Thickness;
-            surface = md_in.results.TransientSolution(i).Surface;
-            md.geometry.thickness = thickness;
-            md.geometry.surface = surface;
-            md.geometry.base = base;
-            md.mask.ocean_levelset= md_in.results.TransientSolution(i).MaskOceanLevelset;
-            md.miscellaneous.name=['historic_from_',num2str(i),'_',org.steps(org.currentstep).string];
-           
-            md.inversion.iscontrol=0;
-            md.transient.isthermal=0;
-            md.transient.isgroundingline=1;
-            md.masstransport.spcthickness=NaN*ones(md.mesh.numberofvertices,1);
-
-            %Load forcing data
-            load './../Data/Atmosphere/ukesm_histo_smb.mat';
-            load './../Data/Ocean/ukesm_histo_tf.mat';
-            load './../Data/Ocean/deltat_median.mat';
-            load './../Data/Ocean/gamma0_median.mat';
-            load './../Data/Ocean/basinid.mat';
-            load './../Data/Ocean/tf_depths.mat';
-
-            %Set SMB Forcing Parameters
-            miroc_rcp85_smb(1:end-1,:) = miroc_rcp85_smb(1:end-1,:);
-            md.smb.mass_balance = miroc_rcp85_smb; %already in m/year ice
-
-            %Set ISMIP6 basal melt rate parameters
-            delta_t                     = deltat_median;
-            md.basalforcings            = basalforcingsismip6(md.basalforcings);
-            md.basalforcings.basin_id   = basinid;
-            md.basalforcings.num_basins = length(unique(basinid));
-            md.basalforcings.delta_t    = delta_t;
-            md.basalforcings.tf_depths  = tf_depths;
-            md.basalforcings.gamma_0    = gamma0_median;
-            md.basalforcings.tf         = obs_clim_tf;
-            md.basalforcings.islocal = 0;
-
-            %Model specifications
-            md.outputdefinition.definitions={};
-            md.timestepping.interp_forcing=0;
-            md.timestepping.start_time=1;
-            md.timestepping.final_time=81;
-            md.timestepping.time_step=1/24;
-            md.settings.output_frequency=24*25;
-            md.transient.requested_outputs={'default'};
-
-            %Set melt / friction interpolation schemes
-            md.groundingline.migration = 'SubelementMigration';
-            md.groundingline.friction_interpolation='SubelementFriction1';
-            md.groundingline.melt_interpolation='SubelementMelt1';
-
-            %Solve
-            md.verbose=verbose('solution',true,'module',true,'convergence',true);
-            clustername = 'gadi';
-            cluster = set_cluster(clustername);
-            md.cluster=cluster;
-            md.settings.waitonlock=0;
+        for i=1:21
+            modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1(md_in_path);
             md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
-           
-            if loadonly;
+            disp(md.miscellaneous.name);
+            if loadonly
                 % savemodel
-                pvel = './Models';
-                save_p= fullfile(pvel, md.miscellaneous.name);
-                save(save_p,'md','-v7.3');
+                save_misc_name(md);
             end
         end
-
 
     end% }}}
     if perform(org,'-1930_from_2ka_Cfriction_mean_SMB4_submit'),% {{{
 
-        md_in=loadmodel('./Models/AIS1850_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
-        md=md_in;
-        sz = size(md.results.TransientSolution);
-        for i =1:1
-
-            base = md_in.results.TransientSolution(i).Base;
-            thickness = md.results.TransientSolution(i).Thickness;
-            surface = md.results.TransientSolution(i).Surface;
-            md.geometry.thickness = thickness;
-            md.geometry.surface = surface;
-            md.geometry.base = base;
-            md.mask.ocean_levelset= md.results.TransientSolution(i).MaskOceanLevelset;
-            md.miscellaneous.name=['historic_from_',num2str(i),'_',org.steps(org.currentstep).string];
-           
-            md.inversion.iscontrol=0;
-            md.transient.isthermal=0;
-            md.transient.isgroundingline=1;
-            md.masstransport.spcthickness=NaN*ones(md.mesh.numberofvertices,1);
-
-            %Load forcing data
-            load './../Data/Atmosphere/ukesm_histo_smb.mat';
-            load './../Data/Ocean/ukesm_histo_tf.mat';
-            load './../Data/Ocean/deltat_median.mat';
-            load './../Data/Ocean/gamma0_median.mat';
-            load './../Data/Ocean/basinid.mat';
-            load './../Data/Ocean/tf_depths.mat';
-
-            %Set SMB Forcing Parameters
-            miroc_rcp85_smb(1:end-1,:) = miroc_rcp85_smb(1:end-1,:);
-            md.smb.mass_balance = miroc_rcp85_smb; %already in m/year ice
-
-            %Set ISMIP6 basal melt rate parameters
-            delta_t                     = deltat_median;
-            md.basalforcings            = basalforcingsismip6(md.basalforcings);
-            md.basalforcings.basin_id   = basinid;
-            md.basalforcings.num_basins = length(unique(basinid));
-            md.basalforcings.delta_t    = delta_t;
-            md.basalforcings.tf_depths  = tf_depths;
-            md.basalforcings.gamma_0    = gamma0_median;
-            md.basalforcings.tf         = obs_clim_tf;
-            md.basalforcings.islocal = 0;
-
-            %Model specifications
-            md.outputdefinition.definitions={};
-            md.timestepping.interp_forcing=0;
-            md.timestepping.start_time=1;
-            md.timestepping.final_time=81;
-            md.timestepping.time_step=1/24;
-            md.settings.output_frequency=24*25;
-            md.transient.requested_outputs={'default'};
-
-            %Set melt / friction interpolation schemes
-            md.groundingline.migration = 'SubelementMigration';
-            md.groundingline.friction_interpolation='SubelementFriction1';
-            md.groundingline.melt_interpolation='SubelementMelt1';
-
-            %Solve
-            md.verbose=verbose('solution',true,'module',true,'convergence',true);
-            clustername = 'gadi';
-            cluster = set_cluster(clustername);
-            md.cluster=cluster;
-            md.settings.waitonlock=0;
+        for i=1:1
+            modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1(md_in_path);
             md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
-           
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
         end
 
     end% }}}
+    if perform(org,'-1930_from_2ka_Cfriction_nn_SMB4_load'),% {{{
+
+        for i=1:21
+            modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1-2ka_Cfriction_nn_SMB4x.mat']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1_load(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+    end% }}}
+    if perform(org,'-1930_from_2ka_Cfriction_mean_SMB4_load'),% {{{
+
+        for i=10:21
+            modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1_load(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+    end% }}}
+    % submitted only appropiate run
     if perform(org,'_clim-1930_from_2ka_2INVCfriction_mean'),% {{{
         name = 'historic_clim_from_2ka_2INVCfriction_mean_SMB4_experiment.txt';
         namenew = [p_table 'cond_clim_' name];
@@ -471,4 +388,313 @@ end %}}}
                 save_misc_name(md);
             end
         end
+    end% }}}
+    % submit here from all clim runs, did not do analaysis
+    if perform(org,'_clim-1930_from_2ka_2INVCfriction_mean_oceanPIG95percentile'),% {{{
+        for i =1:21
+
+            modelname  = ['historic_clim_oceanPIG95percentile_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1_oceanPIG95percentile(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+    end% }}}
+    % submit and load hist1 run starting fram apporopiate clim 1850 forcingi
+    if perform(org,'-1930_2INVCfriction_mean_SMB4_submit_c0.75'),% {{{
+        for i=10:41
+            modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.75']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+    end% }}}
+    if perform(org,'-1930_2INVCfriction_mean_SMB4_submit_c0.5'),% {{{
+        for i=10:41
+            modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0-2ka_Cfriction_mean_SMB4x_cfriction0.5']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+    end% }}}
+    if perform(org,'-1930_2INVCfriction_mean_SMB4_submit_c0.25'),% {{{
+        for i=10:41
+            modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.25']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+    end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.75'),% {{{
+        for i=10:41
+            modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.75']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+    end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.5'),% {{{
+        for i=10:41
+            modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.5']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+    end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.25'),% {{{
+        for i=10:41
+            modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.25']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+    end% }}}
+    %19-24specific chosen i and t
+    if perform(org,'-1930_2INVCfriction_mean_SMB4_submit_c0.75_specific'),% {{{
+        % specific staring point
+        i = 28;
+        modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.75'];
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=1;
+        time_endyears=300;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind)
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+        i = 41;
+        modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.75'];
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=1;
+        time_endyears=500;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind)
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+        i = 10;
+        modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.75'];
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=500;
+        time_endyears=900;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind)
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+    end% }}}
+    if perform(org,'-1930_2INVCfriction_mean_SMB4_submit_c0.5_specific'),% {{{
+
+
+
+    end% }}}
+    if perform(org,'-1930_2INVCfriction_mean_SMB4_submit_c0.25_specific'),% {{{
+
+        i = 22;
+        modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.25'];
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=100;
+        time_endyears=500;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind);
+
+            disp(md.miscellaneous.name);
+            % md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+        
+        i = 41;
+        modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.25'];
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=1;
+        time_endyears=300;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind);
+
+            disp(md.miscellaneous.name);
+            % md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+        i = 10;
+        modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.25'];
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=1;
+        time_endyears=500;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind);
+            disp(md.miscellaneous.name);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+
+
+    end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.75_specific'),% {{{
+        for i=10:41
+            modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.75']
+            md_in_path = ['Models/' modelname];
+            md = model_continue_hist1(md_in_path);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+    end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.5_specific'),% {{{
+        i = 41;
+        modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.5']
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=1;
+        time_endyears=100;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind)
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
+
+    end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.25_specific'),% {{{
+        i = 41;
+        modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.25']
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=1;
+        time_endyears=100;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind)
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+
+
     end% }}}

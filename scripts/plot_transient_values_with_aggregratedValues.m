@@ -377,4 +377,111 @@ function plot_after_tuning(md,steps,save_fig)
             savefig(nm);
         end
     end %}}}
+        if perform(org,'Plot_all_vel'),% {{{
+        % filename = './Models/ISMIP6Antarctica_RunInitSSA.mat';
+        % md=loadmodel(filename);
+        sz = size(md.results.TransientSolution);
+        % diff = md.results.StressbalanceSolution.Vel-md.initialization.vel;
+        diff_sim = md.results.TransientSolution(end).Vel-md.results.TransientSolution(1).Vel;
 
+        diff_sim_H = md.results.TransientSolution(end).Thickness-md.results.TransientSolution(1).Thickness;
+        diff_sim_bm = md.results.TransientSolution(end).BasalforcingsFloatingiceMeltingRate-md.results.TransientSolution(1).BasalforcingsFloatingiceMeltingRate;
+
+        pos=md.mask.ice_levelset<0; %ice only
+        pos_float= md.mask.ocean_levelset<0;
+        pos_grouned=pos & pos_float; %only floaating shelves with ice
+        % pos_float= md.mask.ocean_levelset<0;
+        % pos_grouned=pos & pos_float; %only floaating shelves with ice
+
+        % diff = md.results.StressbalanceSolution.Vel-md.initialization;
+        d1=min(diff_sim(pos));
+        d2=max(diff_sim(pos));
+        d = max(abs(d1),abs(d2));
+        d=d/10;
+        d = 300;
+        C=redwhiteblue(-d,d);
+        dh_i = get_d_for_colormax(diff_sim_H(pos));
+        dbm_i = get_d_for_colormax(diff_sim_bm(pos_grouned));
+        dh =dh_i/2;
+        dbm=dbm_i/2;
+        Ch=redwhiteblue(-dh,dh);
+        Cbm=redwhiteblue(-dbm,dbm);
+
+
+        % calcualte errors where ice is
+        tit2 = ['modelled last y -1. vel'];
+        fl1 = expread('./../Exp/PIG_fl_drawn.exp');
+        fl2 = expread('./../Exp/THW_fl_drawn.exp');
+
+        % tit2 = ['modeled - obs. vel RMSE ' , num2str(rmse_diff2)];
+        figure
+        % Subplot 1
+
+        hold on; plot(fl1.x,fl1.y,'-','Color','black','LineWidth',5);
+        hold on; plot(fl2.x,fl2.y,'-','Color','black','LineWidth',5);
+        plotmodel(md,...
+            'data',diff_sim,'mask',pos,'title',tit2,...
+            'caxis#1',[-d,d],...
+            'colormap#1',C)
+        hold on; plot(fl1.x,fl1.y,'-','Color','black','LineWidth',5);
+        hold on; plot(fl2.x,fl2.y,'-','Color','black','LineWidth',5);
+        hold off;
+
+        if save_fig,
+            nm = ['./figs/transienteval/' md.miscellaneous.name '2donlyVel_allAIS.fig'];
+            savefig(nm);
+        end
+    if perform(org,'Plot_all_2d_thick'),% {{{
+        % filename = './Models/ISMIP6Antarctica_RunInitSSA.mat';
+        % md=loadmodel(filename);
+        sz = size(md.results.TransientSolution);
+        % diff = md.results.StressbalanceSolution.Vel-md.initialization.vel;
+        diff_sim = md.results.TransientSolution(end).Vel-md.results.TransientSolution(1).Vel;
+                    
+        diff_sim_H = md.results.TransientSolution(end).Thickness-md.results.TransientSolution(1).Thickness;
+        diff_sim_bm = md.results.TransientSolution(end).BasalforcingsFloatingiceMeltingRate-md.results.TransientSolution(1).BasalforcingsFloatingiceMeltingRate;
+                    
+        pos=md.mask.ice_levelset<0; %ice only
+        pos_float= md.mask.ocean_levelset<0;
+        pos_grouned=pos & pos_float; %only floaating shelves with ice
+        % pos_float= md.mask.ocean_levelset<0;
+        % pos_grouned=pos & pos_float; %only floaating shelves with ice
+                    
+        % diff = md.results.StressbalanceSolution.Vel-md.initialization;
+        d1=min(diff_sim(pos));
+        d2=max(diff_sim(pos));
+        d = max(abs(d1),abs(d2));
+        d=d/10;     
+        d = 300;    
+        C=redwhiteblue(-d,d);
+        dh_i = get_d_for_colormax(diff_sim_H(pos));
+        dbm_i = get_d_for_colormax(diff_sim_bm(pos_grouned));
+        dh =dh_i/2; 
+        dbm=dbm_i/2;
+        Ch=redwhiteblue(-dh,dh);
+        Cbm=redwhiteblue(-dbm,dbm);
+                    
+                    
+        % calcualte errors where ice is
+        tit2 = ['modelled last y -1. vel'];
+        fl1 = expread('./../Exp/PIG_fl_drawn.exp');
+        fl2 = expread('./../Exp/THW_fl_drawn.exp');
+                    
+        % tit2 = ['modeled - obs. vel RMSE ' , num2str(rmse_diff2)];
+        figure      
+        % Subplot 1 
+                    
+        hold on; plot(fl1.x,fl1.y,'-','Color','black','LineWidth',5);
+        hold on; plot(fl2.x,fl2.y,'-','Color','black','LineWidth',5);
+        plotmodel(md,...
+            'data',diff_sim_H,'mask',pos,'title','thickness y end - 1y0',...
+            'caxis',[-dh,dh],...
+            'colormap',Ch)
+        hold on; plot(fl1.x,fl1.y,'-','Color','black','LineWidth',5);
+        hold on; plot(fl2.x,fl2.y,'-','Color','black','LineWidth',5);
+        hold off;   
+                    
+        if save_fig,
+            nm = ['./figs/transienteval/' md.miscellaneous.name '2donlyH_allAIS.fig'];
+            savefig(nm);
+        end 

@@ -25,21 +25,27 @@ function name=plot_analyze(steps,save_fig)
 
     % clim runs 10-12c
     % plot all runs g.l.
-    if perform(org,'test_my_plotting_functions'),% {{{
+    if perform(org,'transient_plotting_clim'),% {{{
 
-        md = loadmodel('Models/ISMIP6Antarctica_Test_groundonline_flux_output.mat');
+% md = loadmodel('Models/ISMIP6Antarctica_Test_groundonline_flux_output.mat');
 
+md = loadmodel('Models/hist2_hist1_historic_clim_from_9_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
+% md = loadmodel('Models/hist1_historic_clim_from_9_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
+% md = loadmodel('Models/historic_clim_from_9_RedoforTHW_nobasal_melt_nonlocal_1-2ka_Cfriction_mean_SMB4x.mat');
 
-        figname=[ 'Test_groundonline_flux_output'];
+        figname=md.miscellaneous.name;
+% figname='historic_clim';
 
-        % plots_2d_all_transient(md,figname,save_fig);
-plot_transient_values_with_aggregratedValues(md,2,save_fig)
-% plot_transient_values_with_aggregratedValues(md,3,save_fig)
-% plot_transient_values_with_aggregratedValues(md,4,save_fig)
+        plots_2d_all_transient(md,figname,save_fig);
+% plot_transient_values_with_aggregratedValues(md,2,save_fig)
+        plot_transient_values_with_aggregratedValues(md,3,save_fig)
+        plot_transient_values_with_aggregratedValues(md,4,save_fig)
+        plot_transient_values_with_aggregratedValues(md,6,save_fig)
+        plot_transient_values_with_aggregratedValues(md,7,save_fig)
+        plot_transient_values_with_aggregratedValues(md,8,save_fig)
+        plot_transient_values_with_aggregratedValues(md,9,save_fig)
+
 % plot_transient_values_with_aggregratedValues(md,5,save_fig)
-% plot_transient_values_with_aggregratedValues(md,6,save_fig)
-% plot_transient_values_with_aggregratedValues(md,7,save_fig)
-
 
 
 

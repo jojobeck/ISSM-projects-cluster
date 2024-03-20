@@ -2,7 +2,7 @@ function save_table_exp(md, expfile)
 
     [in_elements]=ContourToMesh(md.mesh.elements,md.mesh.x,md.mesh.y,expfile,'element',0);
     [in_nodes]=ContourToMesh(md.mesh.elements,md.mesh.x,md.mesh.y,expfile,'node',1);
-    msk = mask_as_icelevelset(in_nodes);
+    msk = mask_as_icelevelset(md,in_nodes);
 
 
     % Create the table using your create_table function

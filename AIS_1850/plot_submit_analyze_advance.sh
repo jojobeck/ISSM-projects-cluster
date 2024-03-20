@@ -1,5 +1,5 @@
 #PBS -S /bin/bash                                                                                                                                                                                                                                                           
-#PBS -P bi77
+#PBS -P au88
 #PBS -q normal
 #PBS -l ncpus=1
 #PBS -l walltime=04:00:00
@@ -8,9 +8,9 @@
 #PBS -M johanna.beckmann@monash.edu
 #PBS -l wd
 #PBS -l software=matlab_monash
-#PBS -o PlotAnalyze.outlog
-#PBS -e PlotAnalyze.errlog
-#PBS -l storage=gdata/bi77
+#PBS -o PlotAnalyzeiadvance.outlog
+#PBS -e PlotAnalyzeadvance.errlog
+#PBS -l storage=gdata/au88
 
 export ISSM_DIR=/home/565/jb1863/trunk
 source $ISSM_DIR/etc/environment.sh
@@ -24,10 +24,12 @@ module load matlab/R2021b
 module load matlab_licence/monash
 # source $ISSM_DIR/scripts/startup.sh
 
-step=[2,3,4,5]
+# step=[4,8,12]
+# step=[1,2,3]
+step=[6]
 # step=3
 # matlab -nosplash -singleCompThread < analyze_script.m > /scratch/bi77/jb1863/$PBS_JOBID,ananlyze.log
 # argName='$arg'
-# matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('plot_test') , quit" > Plot_Analyze_${PBS_JOBID}.log
-matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('plot_analyze(${step},1)') , quit" > PlotAnalyze.log
+# matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('plot_analyze_clim(${step},1)') , quit" > PlotAnalyze.log
+matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, run('plot_analyze_advance(${step},1)') , quit" > PlotAnalyzeadvance.log
 # matlab -nodisplay -nosplash -r " addpath $ISSM_DIR/src/m/dev; devpath; addpath $ISSM_DIR/lib outputDir='$PBS_JOBFS',numberOfWorkers=$PBS_NCPUS, analyze_script , quit" > Analyze_${PBS_JOBID}.log

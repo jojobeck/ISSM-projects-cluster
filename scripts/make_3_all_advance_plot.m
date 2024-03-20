@@ -1,14 +1,9 @@
-function make_3_all_clim_plot(md_in,md_present,save_fig,varargin)
-    if nargin < 4
-        i_in = 1; % Default value for i_in
-    else
-        i_in = varargin{1};
-    end
+function make_3_all_advance_plot(md_in,md_present,save_fig)
     md=md_in;
     sz = size(md.results.TransientSolution);
     % for i =1:1,
-    for i =i_in:sz(2),
-        namo=['historic_clim_from_',num2str(i),'_',md_in.miscellaneous.name];
+    for i =1:sz(2),
+        namo=['advance_',num2str(i),'_',md_in.miscellaneous.name];
         name=[namo '.mat'];
         model_pth = ['Models/' name];
 
