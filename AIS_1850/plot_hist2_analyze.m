@@ -190,3 +190,54 @@ if perform(org,'-1930_nobasal_melt_nonlocal_2ka_Cfriction_nn_SMB4x_plotall'),% {
 end% }}}
 
 
+if perform(org,'-1930_nobasal_melt_nonlocal_2ka_RedoforTHW_Cfriction_mean_SMB4x_cfrition0.25_specifictime'),% {{{
+    directory = 'Models';
+    files = dir(fullfile(directory, 'hist2_hist1_timeyear_*RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.25'));
+    % Loop through each file
+    for i = 1:length(files)
+        % Get the file name
+        filename = files(i).name;
+        md_in_path = [directory '/' filename];
+        md_in = loadmodel(md_in_path);
+        figname=filename;
+        plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+        % plots_2d_all_transient(md_in,figname,save_fig);
+    end
+
+
+
+end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.5_specific'),% {{{
+    directory = 'Models';
+    files = dir(fullfile(directory, 'hist2_hist1_timeyear_*nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.5'));
+    % Loop through each file
+    for i = 1:length(files)
+        % Get the file name
+        filename = files(i).name;
+        md_in_path = [directory '/' filename];
+        md_in = loadmodel(md_in_path);
+        figname=filename;
+        plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+        % plots_2d_all_transient(md_in,figname,save_fig);
+    end
+
+
+
+
+    end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.25_specific'),% {{{
+    directory = 'Models';
+    files = dir(fullfile(directory, 'hist2_hist1_timeyear_*nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.25'));
+    % Loop through each file       
+    for i = 1:length(files)        
+        % Get the file name        
+        filename = files(i).name;  
+        md_in_path = [directory '/' filename];      
+        md_in = loadmodel(md_in_path);              
+        figname=filename;          
+        plot_4glaciers_move_check_hist2(md_in,md_present,figname,save_fig)
+        % plots_2d_all_transient(md_in,figname,save_fig);
+    end    
+
+
+    end% }}}

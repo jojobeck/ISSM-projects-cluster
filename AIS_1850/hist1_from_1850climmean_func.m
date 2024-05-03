@@ -584,7 +584,7 @@ end %}}}
             md = model_continue_hist1_specifictimes(md_in,ind);
 
             disp(md.miscellaneous.name);
-            % md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
             if loadonly
                 % savemodel
                 save_misc_name(md);
@@ -604,31 +604,31 @@ end %}}}
             md = model_continue_hist1_specifictimes(md_in,ind);
 
             disp(md.miscellaneous.name);
-            % md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
-            if loadonly
-                % savemodel
-                save_misc_name(md);
-            end
-        end
-
-        i = 10;
-        modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.25'];
-        md_in_path = ['Models/' modelname];
-        % specific timming point form clim experiment
-        time_start=1;
-        time_endyears=500;
-        inds =time_indices_historic_clim(time_start,time_endyears,10);
-        md_in =loadmodel(md_in_path);
-        for i = 1:numel(inds),
-            ind = inds(i);
-            md = model_continue_hist1_specifictimes(md_in,ind);
-            disp(md.miscellaneous.name);
             md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
             if loadonly
                 % savemodel
                 save_misc_name(md);
             end
         end
+
+% i = 10;
+% modelname  = ['historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.25'];
+% md_in_path = ['Models/' modelname];
+% specific timming point form clim experiment
+% time_start=1;
+% time_endyears=500;
+% inds =time_indices_historic_clim(time_start,time_endyears,10);
+% md_in =loadmodel(md_in_path);
+% for i = 1:numel(inds),
+% ind = inds(i);
+% md = model_continue_hist1_specifictimes(md_in,ind);
+% disp(md.miscellaneous.name);
+% md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+% if loadonly
+% savemodel
+% save_misc_name(md);
+% end
+% end
 
 
 
@@ -677,6 +677,44 @@ end %}}}
     end% }}}
     if perform(org,'-1930_mean_SMB4_submit_c0.25_specific'),% {{{
         i = 41;
+        modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.25']
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=900;
+        time_endyears=1000;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind)
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+        i = 10;
+        modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.25']
+        md_in_path = ['Models/' modelname];
+        % specific timming point form clim experiment
+        time_start=1
+        time_endyears=100;
+        inds =time_indices_historic_clim(time_start,time_endyears,10);
+        md_in =loadmodel(md_in_path);
+        for i = 1:numel(inds),
+            ind = inds(i);
+            md = model_continue_hist1_specifictimes(md_in,ind)
+            md=solve(md,'tr','runtimename',false,'loadonly',loadonly);
+            disp(md.miscellaneous.name);
+            if loadonly
+                % savemodel
+                save_misc_name(md);
+            end
+        end
+
+        i = 23;
         modelname  = ['historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.25']
         md_in_path = ['Models/' modelname];
         % specific timming point form clim experiment

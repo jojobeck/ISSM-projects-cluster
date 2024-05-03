@@ -53,7 +53,7 @@ function md = model_continue_hist1(md_in_path)
     md.basalforcings.delta_t    = delta_t;
     md.basalforcings.tf_depths  = tf_depths;
     md.basalforcings.gamma_0    = gamma0_median;
-    md.basalforcings.tf         = obs_clim_tf;
+    md.basalforcings.tf         = ukesm1_1850_1994_tf;
     md.basalforcings.islocal = 0;
 
     %Model specifications

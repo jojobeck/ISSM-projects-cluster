@@ -9,7 +9,7 @@ function md = model_continue_proj2100(md_in_path)
     md.geometry.surface = surface;
     md.geometry.base = base;
     md.mask.ocean_levelset= md_in.results.TransientSolution(end).MaskOceanLevelset;
-    md.miscellaneous.name=['hist2_',md.miscellaneous.name];
+    md.miscellaneous.name=['proj2100_',md.miscellaneous.name];
     spl_name = split(md_in_path,'PISM');
     if size(spl_name,1)>1,
         disp('PISM hydrology');
@@ -34,8 +34,8 @@ function md = model_continue_proj2100(md_in_path)
     md.masstransport.spcthickness=NaN*ones(md.mesh.numberofvertices,1);
 
     %Load forcing data
-    load './../Data/Atmosphere/ukesm_2031_2100_smb.mat';
-    load './../Data/Ocean/ukesm_2031_2100_tf.mat';
+    load './../Data/Atmosphere/ukesm_2001_2100_smb.mat';
+    load './../Data/Ocean/ukesm_2001_2100_tf.mat';
     load './../Data/Ocean/deltat_median.mat';
     load './../Data/Ocean/gamma0_median.mat';
     load './../Data/Ocean/basinid.mat';
@@ -43,7 +43,7 @@ function md = model_continue_proj2100(md_in_path)
 
     %Set SMB Forcing Parameters
     % ukesm_smb_1931_2030(1:end-1,:) = ukesm_smb_1931_2030 (1:end-1,:);
-    md.smb.mass_balance = ukesm_smb_2031_2100 ; %already in m/year ice
+    md.smb.mass_balance = ukesm_smb_2001_2100 ; %already in m/year ice
 
     %Set ISMIP6 basal melt rate parameters
     delta_t                     = deltat_median;
@@ -53,7 +53,7 @@ function md = model_continue_proj2100(md_in_path)
     md.basalforcings.delta_t    = delta_t;
     md.basalforcings.tf_depths  = tf_depths;
     md.basalforcings.gamma_0    = gamma0_median;
-    md.basalforcings.tf         = ukesm1_2031_2100_tf;
+    md.basalforcings.tf         = ukesm1_2001_2100_tf;
     md.basalforcings.islocal = 0;
 
     %Model specifications

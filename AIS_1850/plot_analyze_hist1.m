@@ -115,33 +115,54 @@ end% }}}
 
     end% }}}
     %p friction
-if perform(orgA,'-1930_nobasal_melt_nonlocal_2ka_RedoforTHW_Cfriction_mean_SMB4x_cfrition0.75'),% {{{
-
-
-    i =10;
-
-    modelname  = ['hist1_historic_clim_from_' num2str(i) '_nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.75']
-    mdin_path = ['Models/' modelname];
-    figname=modelname;
-    md_in=loadmodel(mdin_path);
-    plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
-% plots_2d_all_transient(md_in,figname,save_fig);
-
-
-
-end% }}}`
-if perform(orgA,'-1930_nobasal_melt_nonlocal_2ka_RedoforTHW_Cfriction_mean_SMB4x_cfrition0.5'),% {{{
-
-
-    i =10;
-
-    modelname  = ['hist1_historic_clim_from_' num2str(i) '_RedoforTHW_nobasal_melt_nonlocal_0-2ka_Cfriction_mean_SMB4x_cfriction0.5']
-    mdin_path = ['Models/' modelname];
-    figname=modelname;
-    md_in=loadmodel(mdin_path);
-    plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
-% plots_2d_all_transient(md_in,figname,save_fig);
+if perform(org,'-1930_nobasal_melt_nonlocal_2ka_RedoforTHW_Cfriction_mean_SMB4x_cfrition0.25_specifictime'),% {{{
+    directory = 'Models';
+    files = dir(fullfile(directory, 'hist1_timeyear_*RedoforTHW_nobasal_melt_nonlocal_0_2ka_Cfriction_mean_SMB4x_cfriction0.25'));
+    % Loop through each file
+    for i = 1:length(files)
+        % Get the file name
+        filename = files(i).name;
+        md_in_path = [directory '/' filename];
+        md_in = loadmodel(md_in_path);
+        figname=filename;
+        plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+        % plots_2d_all_transient(md_in,figname,save_fig);
+    end
 
 
 
-end% }}}`
+end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.5_specific'),% {{{
+    directory = 'Models';
+    files = dir(fullfile(directory, 'hist1_timeyear_*nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.5'));
+    % Loop through each file
+    for i = 1:length(files)
+        % Get the file name
+        filename = files(i).name;
+        md_in_path = [directory '/' filename];
+        md_in = loadmodel(md_in_path);
+        figname=filename;
+        plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+        % plots_2d_all_transient(md_in,figname,save_fig);
+    end
+
+
+
+
+    end% }}}
+    if perform(org,'-1930_mean_SMB4_submit_c0.25_specific'),% {{{
+    directory = 'Models';
+    files = dir(fullfile(directory, 'hist1_timeyear_*nobasal_melt_nonlocal_1ka_Cfriction_mean_SMB4x_0_2k_cfriction0.25'));
+    % Loop through each file       
+    for i = 1:length(files)        
+        % Get the file name        
+        filename = files(i).name;  
+        md_in_path = [directory '/' filename];      
+        md_in = loadmodel(md_in_path);              
+        figname=filename;          
+        plot_4glaciers_move_check(md_in,md_present,figname,save_fig)
+        % plots_2d_all_transient(md_in,figname,save_fig);
+    end    
+
+
+    end% }}}

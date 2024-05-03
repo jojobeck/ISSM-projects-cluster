@@ -9,7 +9,7 @@ function md = model_continue_hist2(md_in_path)
     md.geometry.surface = surface;
     md.geometry.base = base;
     md.mask.ocean_levelset= md_in.results.TransientSolution(end).MaskOceanLevelset;
-    md.miscellaneous.name=['proj2100_',md.miscellaneous.name];
+    md.miscellaneous.name=['hist2_',md.miscellaneous.name];
     spl_name = split(md_in_path,'PISM');
     if size(spl_name,1)>1,
         disp('PISM hydrology');

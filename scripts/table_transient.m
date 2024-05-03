@@ -13,7 +13,8 @@ function resultTable = create_table(md, varargin)
 
     % Calculate grounding line flux transient
     % gl_flux = gccalc_GroundingLineFlux_transient(md, 'mask_element', msk_gl);
-    gl_flux = calc_GroundingLineFLux_transient(md,'mask_element',msk_gl);
+    % gl_flux = calc_GroundingLineFLux_transient(md,'mask_element',msk_gl);
+    gl_flux = calc_only1GroundingLineFLux_transient(md,'mask_element',msk_gl);
     % Create a table with the results
     resultTable = table(gr_area_t, fl_area_t, Vafl_t, BMB_t, SMB, V, gl_flux, ...
         'VariableNames', {'GroundedArea', 'FloatingArea', 'Vafl', 'BMB', 'SMB', 'Volume', 'GroundingLineFlux'});
